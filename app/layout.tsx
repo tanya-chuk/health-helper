@@ -1,8 +1,9 @@
+import React from "react";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import { Card } from '@mui/material';
-import { MainNavigation } from './components/MainNavigation';
-import { AppBar } from './components/AppBar';
+import { Card } from "@mui/material";
+import { MainNavigation } from "./components/MainNavigation";
+import { AppBar } from "./components/AppBar";
 import "./globals.css";
 
 const geistSans = Geist({
