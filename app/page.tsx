@@ -1,7 +1,5 @@
-import Image from "next/image";
+import React from "react";
 
 export default function Home() {
-  return (
-    <div>content</div>
-  );
+  return <div>content</div>;
 }
