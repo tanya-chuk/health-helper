@@ -34,7 +34,7 @@ export default function RootLayout({
         <AppBar />
         <div className="content">
           <MainNavigation />
-          <Card>{children}</Card>
+          <Card sx={{ padding: "16px" }}>{children}</Card>
         </div>
       </body>
     </html>
