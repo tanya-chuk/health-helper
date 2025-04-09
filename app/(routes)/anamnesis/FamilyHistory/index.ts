@@ -1,1 +1,1 @@
-export { FamilyHistory } from "./FamilyHistory";
+export { FamilyHistory } from './FamilyHistory';

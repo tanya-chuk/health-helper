@@ -1,8 +1,8 @@
-"use client";
-import React, { ReactElement, useState } from "react";
-import clsx from "clsx";
-import { Collapse } from "@mui/material";
-import { StyledChevron, StyledDiv } from "./styled";
+'use client';
+import React, { ReactElement, useState } from 'react';
+import clsx from 'clsx';
+import { Collapse } from '@mui/material';
+import { StyledChevron, StyledDiv } from './styled';
 
 interface Props {
   summary: ReactElement;
@@ -20,7 +20,7 @@ export const Accordion = ({ summary, details }: Props) => {
     <>
       <StyledDiv className="expandableBlock" onClick={handleClick}>
         {summary}
-        <StyledChevron width={20} className={clsx(isOpen && "expanded")} />
+        <StyledChevron width={20} className={clsx(isOpen && 'expanded')} />
       </StyledDiv>
       <Collapse in={isOpen} timeout="auto" unmountOnExit>
         {details}

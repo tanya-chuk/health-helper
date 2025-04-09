@@ -1,8 +1,8 @@
-"use client";
-import React from "react";
-import { Typography } from "@mui/material";
-import { Accordion } from "@/app/components/Accordion";
-import { patient } from "./mockData";
+'use client';
+import React from 'react';
+import { Typography } from '@mui/material';
+import { Accordion } from '@/app/components/Accordion';
+import { patient } from './mockData';
 import {
   ChronicIllness,
   Operations,
@@ -10,31 +10,31 @@ import {
   FamilyHistory,
   Allergies,
   BadHabits,
-} from ".";
+} from '.';
 
 const expandableData = [
   {
-    title: "Хронические заболевания",
+    title: 'Хронические заболевания',
     content: <ChronicIllness list={patient.illness} />,
   },
   {
-    title: "Перенесенные операции",
+    title: 'Перенесенные операции',
     content: <Operations list={patient.operations} />,
   },
   {
-    title: "Прием препаратов",
+    title: 'Прием препаратов',
     content: <Medications list={patient.medications} />,
   },
   {
-    title: "Заболевания в семье",
+    title: 'Заболевания в семье',
     content: <FamilyHistory list={patient.familyHistory} />,
   },
   {
-    title: "Аллергия",
+    title: 'Аллергия',
     content: <Allergies {...patient.allergies} />,
   },
   {
-    title: "Вредные привычки",
+    title: 'Вредные привычки',
     content: <BadHabits {...patient.badHabits} />,
   },
 ];
@@ -47,7 +47,7 @@ const Anamnesis = () => {
       </Typography>
       <Typography>{patient.name}</Typography>
       <Typography>
-        Дата рождения: {new Date(patient.birthDate).toLocaleDateString("ru-RU")}
+        Дата рождения: {new Date(patient.birthDate).toLocaleDateString('ru-RU')}
         , {patient.age} лет
       </Typography>
       <Typography>

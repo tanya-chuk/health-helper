@@ -1,7 +1,7 @@
 export const stringifyList = (list: Array<string>) => {
   if (!list.length) {
-    return "";
+    return '';
   }
 
-  return list.reduce((acc, val) => acc.concat(", ", val));
+  return list.reduce((acc, val) => acc.concat(', ', val));
 };

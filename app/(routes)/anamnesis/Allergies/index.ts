@@ -1,1 +1,1 @@
-export { Allergies } from "./Allergies";
+export { Allergies } from './Allergies';

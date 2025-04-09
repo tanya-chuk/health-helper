@@ -1,6 +1,6 @@
-import React from "react";
-import { List, Typography } from "@mui/material";
-import { StyledDiv, StyledListItem } from "./styled";
+import React from 'react';
+import { List, Typography } from '@mui/material';
+import { StyledDiv, StyledListItem } from './styled';
 
 interface Illness {
   case: string;

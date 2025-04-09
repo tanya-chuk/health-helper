@@ -1,1 +1,1 @@
-export { ChronicIllness } from "./ChronicIllness";
+export { ChronicIllness } from './ChronicIllness';

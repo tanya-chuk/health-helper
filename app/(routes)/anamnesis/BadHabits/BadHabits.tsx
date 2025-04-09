@@ -1,5 +1,5 @@
-import { List, ListItem, Typography } from "@mui/material";
-import React from "react";
+import { List, ListItem, Typography } from '@mui/material';
+import React from 'react';
 
 interface Props {
   alcohol: boolean;
