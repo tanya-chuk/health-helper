@@ -1,9 +1,9 @@
 export const patient = {
-  name: "Осадчук Татьяна Александровна",
-  birthDate: "20.02.1995",
+  name: "Полушубкина Ксения Романовна",
+  birthDate: 793238400000, // Перенести обработку timestamp на сервер, отдавать строку с датой
   age: 30,
-  height: 171,
-  weight: 60,
+  height: 161,
+  weight: 50,
   bloodPressure: {
     systolic: 120,
     diastolic: 80,
@@ -13,41 +13,49 @@ export const patient = {
       case: "Мигрень с аурой",
       category: "neurology",
       debut: { age: 13, year: 2008 },
-      notes: null,
     },
     {
       case: "Миопия средней степени",
       category: "ophthalmology",
       debut: { age: 10, year: 2005 },
-      notes: "Проведена лазерная коррекция зрения в январе 2025",
+      notes: "Проведена лазерная коррекция зрения в январе 2022",
+    },
+    {
+      case: "Гиперхолестеринемия",
+      category: "cholesterol",
+      debut: { age: 29, year: 2024 },
+      notes: "Общий холестерин 6.7 ммоль/л, ЛПВН 2.7, ЛПНП 3.5, не-ЛПВП 3.9",
     },
   ],
   operations: [
     { year: 2001, case: "Удаление аденоидов" },
     { year: 2025, case: "Лазерная коррекция зрения" },
-    { year: 2025, case: "Установка и удаление Импланона" },
   ],
   medications: [
     {
-      name: "cipralex",
+      name: "Cipralex",
       periods: [
-        { start: "1.10.2022", end: "1.03.2024" },
-        { start: "1.09.2024" },
+        // Перенести обработку timestamp на сервер, отдавать строку с датой
+        { start: 1664582400000, end: 1709251200000 },
+        { start: 1725148800000 },
       ],
-      cause: "Тревожно-депрессивное расстройство, расстройство адаптации",
+      cause: "Тревожно-депрессивное расстройство",
     },
   ],
   familyHistory: [
     {
-      person: "mother",
+      person: "Мать",
       case: "Повышенный холестерин",
       category: "cholesterol",
+      notes: "Прием статинов",
     },
   ],
-  allergies: null,
+  allergies: {
+    household: ["береза", "пыль"],
+    drug: [],
+  },
   badHabits: {
     alcohol: false,
     smoking: false,
-    drugs: false,
   },
 };
