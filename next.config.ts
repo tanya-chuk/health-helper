@@ -1,4 +1,4 @@
-import type { NextConfig } from "next";
+import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
   /* config options here */
@@ -7,7 +7,7 @@ const nextConfig: NextConfig = {
       test: /\.svg$/,
       use: [
         {
-          loader: "@svgr/webpack",
+          loader: '@svgr/webpack',
           options: {
             icon: true,
           },
@@ -19,9 +19,9 @@ const nextConfig: NextConfig = {
   experimental: {
     turbo: {
       rules: {
-        "*.svg": {
-          loaders: ["@svgr/webpack"],
-          as: "*.js",
+        '*.svg': {
+          loaders: ['@svgr/webpack'],
+          as: '*.js',
         },
       },
     },

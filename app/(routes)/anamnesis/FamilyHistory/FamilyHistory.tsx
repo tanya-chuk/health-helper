@@ -1,5 +1,5 @@
-import React from "react";
-import { List, ListItem, Typography } from "@mui/material";
+import React from 'react';
+import { List, ListItem, Typography } from '@mui/material';
 
 interface Record {
   person: string;
@@ -14,7 +14,7 @@ interface Props {
 
 const Record = ({ data }: { data: Record }) => {
   return (
-    <ListItem sx={{ display: "block" }}>
+    <ListItem sx={{ display: 'block' }}>
       <Typography>
         {data.person}: {data.case.toLowerCase()}
       </Typography>

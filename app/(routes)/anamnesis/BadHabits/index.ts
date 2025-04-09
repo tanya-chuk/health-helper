@@ -1,1 +1,1 @@
-export { BadHabits } from "./BadHabits";
+export { BadHabits } from './BadHabits';

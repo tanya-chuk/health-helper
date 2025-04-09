@@ -1,7 +1,7 @@
-"use client";
-import React from "react";
-import Logo from "@/public/sparkles.svg";
-import { StyledAppBar, StyledBox, StyledTypography } from "./styled";
+'use client';
+import React from 'react';
+import Logo from '@/public/sparkles.svg';
+import { StyledAppBar, StyledBox, StyledTypography } from './styled';
 
 export const AppBar = () => {
   return (

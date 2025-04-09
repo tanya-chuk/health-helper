@@ -1,30 +1,30 @@
-"use client";
-import React, { useEffect, useState } from "react";
-import { usePathname } from "next/navigation";
-import { clsx } from "clsx";
-import { Stack } from "@mui/material";
-import { StyledBox, StyledLink } from "./styled";
+'use client';
+import React, { useEffect, useState } from 'react';
+import { usePathname } from 'next/navigation';
+import { clsx } from 'clsx';
+import { Stack } from '@mui/material';
+import { StyledBox, StyledLink } from './styled';
 
 const paths = {
-  "/anamnesis": {
-    id: "anamnesis",
-    name: "Анамнез",
-    href: "/anamnesis",
+  '/anamnesis': {
+    id: 'anamnesis',
+    name: 'Анамнез',
+    href: '/anamnesis',
   },
-  "/past-visits": {
-    id: "past-visits",
-    name: "Посещения",
-    href: "/past-visits",
+  '/past-visits': {
+    id: 'past-visits',
+    name: 'Посещения',
+    href: '/past-visits',
   },
-  "/prescriptions": {
-    id: "prescriptions",
-    name: "Назначения",
-    href: "/prescriptions",
+  '/prescriptions': {
+    id: 'prescriptions',
+    name: 'Назначения',
+    href: '/prescriptions',
   },
-  "/analyzes": {
-    id: "analyzes",
-    name: "Анализы",
-    href: "/analyzes",
+  '/analyzes': {
+    id: 'analyzes',
+    name: 'Анализы',
+    href: '/analyzes',
   },
 };
 
@@ -44,7 +44,7 @@ export const MainNavigation = () => {
             const isActive = currentPath === href;
             return (
               <StyledLink
-                className={clsx(isActive && "active")}
+                className={clsx(isActive && 'active')}
                 href={href}
                 key={id}
               >

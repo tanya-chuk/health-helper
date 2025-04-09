@@ -1,6 +1,6 @@
-import React from "react";
-import { Typography } from "@mui/material";
-import { stringifyList } from "@/app/utils";
+import React from 'react';
+import { Typography } from '@mui/material';
+import { stringifyList } from '@/app/utils';
 
 interface Props {
   household: Array<string>;
@@ -13,8 +13,8 @@ export const Allergies = ({ household, drug }: Props) => {
 
   return (
     <div>
-      <Typography>Медикаментозные аллергены: {drugAllergies || "—"}</Typography>
-      <Typography>Бытовые аллергены: {householdAllergies || "—"}</Typography>
+      <Typography>Медикаментозные аллергены: {drugAllergies || '—'}</Typography>
+      <Typography>Бытовые аллергены: {householdAllergies || '—'}</Typography>
     </div>
   );
 };
