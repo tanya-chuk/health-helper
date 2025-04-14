@@ -1,11 +1,7 @@
 import React from 'react';
 import { Typography } from '@mui/material';
 import { stringifyList } from '@/app/utils';
-
-interface Props {
-  household: Array<string>;
-  drug: Array<string>;
-}
+import { Allergies as Props } from '@/app/types';
 
 export const Allergies = ({ household, drug }: Props) => {
   const householdAllergies = stringifyList(household);

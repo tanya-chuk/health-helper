@@ -1,18 +1,13 @@
 import React from 'react';
 import { List, ListItem, Typography } from '@mui/material';
 import { CapitalizedTypography } from '@/app/components/StyledTypography';
-
-interface Medication {
-  name: string;
-  cause: string;
-  periods: Array<{ start: number; end?: number }>;
-}
+import { Medication } from '@/app/types';
 
 interface Props {
   list: Array<Medication>;
 }
 
-const formatDate = (timestamp: number) => {
+const formatDate = (timestamp: string) => {
   const date = new Date(timestamp);
   const month = Intl.DateTimeFormat('ru-RU', { month: 'long' }).format(date);
   const year = date.getFullYear();
@@ -20,7 +15,7 @@ const formatDate = (timestamp: number) => {
   return `${month} ${year}`;
 };
 
-const Medication = ({ data }: { data: Medication }) => {
+const MedicationRecord = ({ data }: { data: Medication }) => {
   return (
     <ListItem sx={{ display: 'block' }}>
       <div style={{ display: 'flex', gap: '16px' }}>
@@ -45,7 +40,7 @@ export const Medications = ({ list }: Props) => {
   return (
     <List>
       {list.map((item, i) => (
-        <Medication key={i} data={item} />
+        <MedicationRecord key={i} data={item} />
       ))}
     </List>
   );

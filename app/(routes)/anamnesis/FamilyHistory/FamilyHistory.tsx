@@ -1,18 +1,12 @@
 import React from 'react';
 import { List, ListItem, Typography } from '@mui/material';
-
-interface Record {
-  person: string;
-  case: string;
-  category: string;
-  notes: string;
-}
+import { FamilyHistoryRecord } from '@/app/types';
 
 interface Props {
-  list: Array<Record>;
+  list: Array<FamilyHistoryRecord>;
 }
 
-const Record = ({ data }: { data: Record }) => {
+const Record = ({ data }: { data: FamilyHistoryRecord }) => {
   return (
     <ListItem sx={{ display: 'block' }}>
       <Typography>
