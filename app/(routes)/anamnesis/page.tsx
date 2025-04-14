@@ -1,8 +1,8 @@
 'use client';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Typography } from '@mui/material';
 import { Accordion } from '@/app/components/Accordion';
-import { patient } from './mockData';
+import { Patient } from '@/app/types';
 import {
   ChronicIllness,
   Operations,
@@ -12,7 +12,7 @@ import {
   BadHabits,
 } from '.';
 
-const expandableData = [
+const generatePageContent = (patient: Patient) => [
   {
     title: 'Хронические заболевания',
     content: <ChronicIllness list={patient.illness} />,
@@ -40,7 +40,15 @@ const expandableData = [
 ];
 
 const Anamnesis = () => {
-  return (
+  const [patient, setPatient] = useState<Patient | null>(null);
+
+  useEffect(() => {
+    fetch('/api/patient')
+      .then((res) => res.json())
+      .then(setPatient);
+  }, []);
+
+  return patient ? (
     <div>
       <Typography component="h1" variant="h4">
         Медицинская карта
@@ -57,7 +65,7 @@ const Anamnesis = () => {
         Давление: {patient.bloodPressure.systolic}/
         {patient.bloodPressure.diastolic}
       </Typography>
-      {expandableData.map((item) => (
+      {generatePageContent(patient).map((item) => (
         <Accordion
           key={item.title}
           summary={
@@ -69,6 +77,8 @@ const Anamnesis = () => {
         />
       ))}
     </div>
+  ) : (
+    <div>No data</div>
   );
 };
 

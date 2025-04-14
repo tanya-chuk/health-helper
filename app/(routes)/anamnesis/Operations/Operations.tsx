@@ -1,16 +1,11 @@
 import React from 'react';
 import { List, ListItem, Typography } from '@mui/material';
-
-interface Operation {
-  year: number;
-  case: string;
-}
-
+import { Operation } from '@/app/types';
 interface Props {
   list: Array<Operation>;
 }
 
-const Operation = ({ data }: { data: Operation }) => {
+const OperationRecord = ({ data }: { data: Operation }) => {
   return (
     <ListItem>
       <Typography>{data.year}:&nbsp;</Typography>
@@ -23,7 +18,7 @@ export const Operations = ({ list }: Props) => {
   return (
     <List>
       {list.map((item, i) => (
-        <Operation key={i} data={item} />
+        <OperationRecord key={i} data={item} />
       ))}
     </List>
   );

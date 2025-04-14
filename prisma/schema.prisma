@@ -1,0 +1,87 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Illness {
+  id        String   @id @default(cuid())
+  case      String
+  category  String
+  age       Int
+  year      Int
+  notes     String?
+  patientId String
+  Patient   Patient? @relation(fields: [patientId], references: [id])
+}
+
+model MedicationIntakePeriod {
+  id           String      @id @default(cuid())
+  start        DateTime
+  end          DateTime?
+  medicationId String
+  Medication   Medication? @relation(fields: [medicationId], references: [id])
+}
+
+model Medication {
+  id        String                   @id @default(cuid())
+  name      String
+  cause     String
+  patientId String
+  Patient   Patient?                 @relation(fields: [patientId], references: [id])
+  periods   MedicationIntakePeriod[]
+}
+
+model Operation {
+  id        String  @id @default(cuid())
+  year      Int
+  case      String
+  patientId String
+  Patient   Patient @relation(fields: [patientId], references: [id])
+}
+
+model FamilyHistoryRecord {
+  id        String   @id @default(cuid())
+  person    String
+  case      String
+  category  String
+  notes     String
+  patientId String
+  Patient   Patient? @relation(fields: [patientId], references: [id])
+}
+
+model Allergy {
+  id        String   @id @default(cuid())
+  household String[]
+  drug      String[]
+  patientId String
+  Patient   Patient? @relation(fields: [patientId], references: [id])
+}
+
+model BloodPressure {
+  id        String  @id @default(cuid())
+  systolic  Int
+  diastolic Int
+  patientId String  @unique
+  Patient   Patient @relation(fields: [patientId], references: [id])
+}
+
+model Patient {
+  id            String                @id @default(cuid())
+  name          String
+  age           Int
+  createdAt     DateTime              @default(now())
+  height        Int
+  weight        Int
+  birthDate     DateTime?
+  allergies     Allergy[]
+  familyHistory FamilyHistoryRecord[]
+  illness       Illness[]
+  medications   Medication[]
+  operations    Operation[]
+  badHabits     Json?
+  bloodPressure BloodPressure?
+}

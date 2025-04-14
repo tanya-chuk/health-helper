@@ -1,5 +1,5 @@
 export const stringifyList = (list: Array<string>) => {
-  if (!list.length) {
+  if (!list?.length) {
     return '';
   }
 

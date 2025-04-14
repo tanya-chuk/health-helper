@@ -1,10 +1,7 @@
-import { List, ListItem, Typography } from '@mui/material';
 import React from 'react';
+import { List, ListItem, Typography } from '@mui/material';
+import { BadHabits as Props } from '@/app/types';
 
-interface Props {
-  alcohol: boolean;
-  smoking: boolean;
-}
 export const BadHabits = ({ alcohol, smoking }: Props) => {
   const noHabits = !alcohol && !smoking;
 
