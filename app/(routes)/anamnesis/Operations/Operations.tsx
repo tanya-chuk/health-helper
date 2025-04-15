@@ -17,8 +17,8 @@ const OperationRecord = ({ data }: { data: Operation }) => {
 export const Operations = ({ list }: Props) => {
   return (
     <List>
-      {list.map((item, i) => (
-        <OperationRecord key={i} data={item} />
+      {list.map((item) => (
+        <OperationRecord key={item.id} data={item} />
       ))}
     </List>
   );

@@ -41,7 +41,7 @@ const generatePageContent = (patient: Patient) => [
 
 const Anamnesis = () => {
   const [patient, setPatient] = useState<Patient | null>(null);
-
+  console.log(patient);
   useEffect(() => {
     fetch('/api/patient')
       .then((res) => res.json())

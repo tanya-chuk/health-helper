@@ -24,8 +24,8 @@ const IllnessRecord = ({ data }: { data: Illness }) => {
 export const ChronicIllness = ({ list }: Props) => {
   return (
     <List>
-      {list.map((item, i) => (
-        <IllnessRecord key={i} data={item} />
+      {list.map((item) => (
+        <IllnessRecord key={item.id} data={item} />
       ))}
     </List>
   );
