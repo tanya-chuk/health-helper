@@ -1,7 +1,6 @@
 import React from 'react';
-import { List, Typography } from '@mui/material';
+import { Box, List, ListItem, Typography } from '@mui/material';
 import { Illness } from '@/app/types';
-import { StyledDiv, StyledListItem } from './styled';
 
 interface Props {
   list: Array<Illness>;
@@ -9,15 +8,15 @@ interface Props {
 
 const IllnessRecord = ({ data }: { data: Illness }) => {
   return (
-    <StyledListItem>
-      <StyledDiv className="description">
+    <ListItem sx={{ display: 'block' }}>
+      <Box sx={{ display: 'flex' }}>
         <Typography>
           С {data.year} года ({data.age} лет):&nbsp;
         </Typography>
         <Typography>{data.case.toLowerCase()}.</Typography>
-      </StyledDiv>
+      </Box>
       <Typography>{data.notes}</Typography>
-    </StyledListItem>
+    </ListItem>
   );
 };
 
