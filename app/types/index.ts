@@ -4,6 +4,7 @@ export interface BloodPressure {
 }
 
 export interface Illness {
+  id: string;
   case: string;
   category: string;
   age: number;
@@ -13,22 +14,26 @@ export interface Illness {
 
 // TO-DO: переименовать в Surgery
 export interface Operation {
+  id: string;
   year: number;
   case: string;
 }
 
 export interface MedicationIntakePeriod {
+  id: string;
   start: string;
   end?: string;
 }
 
 export interface Medication {
+  id: string;
   name: string;
   cause: string;
   periods: Array<MedicationIntakePeriod>;
 }
 
 export interface FamilyHistoryRecord {
+  id: string;
   person: string;
   case: string;
   category: string;
@@ -46,6 +51,7 @@ export interface BadHabits {
 }
 
 export interface Patient {
+  id: string;
   name: string;
   birthDate: string;
   age: number;

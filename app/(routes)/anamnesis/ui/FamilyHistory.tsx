@@ -20,8 +20,8 @@ const Record = ({ data }: { data: FamilyHistoryRecord }) => {
 export const FamilyHistory = ({ list }: Props) => {
   return (
     <List>
-      {list.map((item, i) => (
-        <Record key={i} data={item} />
+      {list.map((item) => (
+        <Record key={item.id} data={item} />
       ))}
     </List>
   );

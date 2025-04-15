@@ -21,8 +21,8 @@ const MedicationRecord = ({ data }: { data: Medication }) => {
       <div style={{ display: 'flex', gap: '16px' }}>
         <Typography>{data.name}&nbsp;</Typography>
         <div style={{ display: 'block' }}>
-          {data.periods.map((period, i) => (
-            <CapitalizedTypography key={i}>
+          {data.periods.map((period) => (
+            <CapitalizedTypography key={period.id}>
               {formatDate(period.start)} –&nbsp;
               {period.end ? formatDate(period.end) : 'н.в.'}
             </CapitalizedTypography>
@@ -39,8 +39,8 @@ const MedicationRecord = ({ data }: { data: Medication }) => {
 export const Medications = ({ list }: Props) => {
   return (
     <List>
-      {list.map((item, i) => (
-        <MedicationRecord key={i} data={item} />
+      {list.map((item) => (
+        <MedicationRecord key={item.id} data={item} />
       ))}
     </List>
   );
