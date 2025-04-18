@@ -1,9 +1,7 @@
 import React from 'react';
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
-import { Card } from '@mui/material';
-import { MainNavigation } from './components/MainNavigation';
-import { AppBar } from './components/AppBar';
+import { AppLayout } from './components/AppLayout';
 import './globals.css';
 
 const geistSans = Geist({
@@ -31,11 +29,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <AppBar />
-        <div className="content">
-          <MainNavigation />
-          <Card sx={{ padding: '16px' }}>{children}</Card>
-        </div>
+        <AppLayout>{children}</AppLayout>
       </body>
     </html>
   );
