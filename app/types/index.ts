@@ -64,4 +64,6 @@ export interface Patient {
   familyHistory: Array<FamilyHistoryRecord>;
   allergies: Allergies;
   badHabits: BadHabits;
+  email: string; // TO-DO перенести в user
+  password: string; // TO-DO перенести в user
 }
