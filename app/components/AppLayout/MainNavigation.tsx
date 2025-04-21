@@ -2,7 +2,7 @@
 import React, { useActionState, useEffect, useState } from 'react';
 import { clsx } from 'clsx';
 import { usePathname } from 'next/navigation';
-import { Stack } from '@mui/material';
+import { Box, Stack } from '@mui/material';
 import { logout } from '@/app/lib/actions';
 import SignOut from '@/public/sign_out.svg';
 import { StyledBox, StyledButton, StyledLink } from './styled';
@@ -58,7 +58,7 @@ export const MainNavigation = () => {
         </Stack>
       </StyledBox>
       <StyledBox className="spacer" />
-      <form action={formAction}>
+      <Box component="form" action={formAction}>
         <StyledButton
           type="submit"
           variant="text"
@@ -67,7 +67,7 @@ export const MainNavigation = () => {
           Выйти
         </StyledButton>
         {errorMessage && <p>{errorMessage}</p>}
-      </form>
+      </Box>
     </StyledBox>
   );
 };
