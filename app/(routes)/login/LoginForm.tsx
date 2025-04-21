@@ -1,6 +1,6 @@
 'use client';
 import React, { useActionState } from 'react';
-import { Button } from '@mui/material';
+import { Box, Button, TextField, Typography } from '@mui/material';
 import { authenticate } from '@/app/lib/actions';
 import { useSearchParams } from 'next/navigation';
 
@@ -13,41 +13,35 @@ export const LoginForm = () => {
   );
 
   return (
-    <form action={formAction}>
-      <div>
-        <div style={{ height: '36px', display: 'flex', gap: 15 }}>
-          <label htmlFor="email" style={{ width: '80px' }}>
-            Email
-          </label>
-          <div>
-            <input
-              id="email"
-              type="email"
-              name="email"
-              placeholder="Enter your email address"
-              required
-              style={{ width: '200px', borderBottom: '1px solid darkgrey' }}
-            />
-          </div>
-        </div>
-        <div style={{ height: '36px', display: 'flex', gap: 15 }}>
-          <label htmlFor="password" style={{ width: '80px' }}>
-            Password
-          </label>
-          <div>
-            <input
-              id="password"
-              type="password"
-              name="password"
-              placeholder="Enter password"
-              required
-              minLength={6}
-              style={{ width: '200px', borderBottom: '1px solid darkgrey' }}
-            />
-          </div>
-        </div>
-      </div>
-      <input type="hidden" name="redirectTo" value={callbackUrl} />
+    <Box component="form" action={formAction}>
+      <Box
+        sx={{
+          width: '250px',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '8px',
+        }}
+      >
+        <TextField
+          required
+          id="email"
+          type="email"
+          name="email"
+          label="Email"
+          placeholder="Enter your email address"
+        />
+        <TextField
+          required
+          id="password"
+          type="password"
+          name="password"
+          label="Password"
+          placeholder="Enter password"
+          slotProps={{ htmlInput: { minLength: 6 } }}
+        />
+      </Box>
+      <TextField hidden type="hidden" name="redirectTo" value={callbackUrl} />
+      {errorMessage && <Typography>{errorMessage}</Typography>}
       <Button
         aria-disabled={isPending}
         type="submit"
@@ -56,7 +50,6 @@ export const LoginForm = () => {
       >
         Войти
       </Button>
-      {errorMessage && <p>{errorMessage}</p>}
-    </form>
+    </Box>
   );
 };
