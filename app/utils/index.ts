@@ -1,1 +1,1 @@
-export { stringifyList } from './stringifyList';
+export { stringifyReaderFriendly } from './stringifyReaderFriendly';
