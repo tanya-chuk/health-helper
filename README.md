@@ -11,6 +11,7 @@ The app helps to keep track of personal medical history in one place:
 - doctor visits and treatments
 
 Designed for real-world use — and built as a developer playground to explore fullstack architecture.
+
 This is both a **practical tool** for managing real medical records and a **pet project** for practicing modern frontend/backend workflows.
 
 ## Stack Highlights
