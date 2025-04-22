@@ -12,7 +12,9 @@
     "lint": "next lint",
     "test": "jest",
     "seed": "prisma db seed",
-    "postinstall": "prisma generate"
+    "postinstall": "prisma generate",
+    "generate-zod": "npx ts-to-zod prisma/dto/*.ts prisma/dto/zod/index.ts",
+    "create-patient": "tsx prisma/scripts/create-patient.ts"
   },
   "dependencies": {
     "@base-ui-components/react": "^1.0.0-alpha.7",
@@ -57,6 +59,8 @@
     "tailwindcss": "^4",
     "ts-jest": "^29.3.2",
     "ts-node": "^10.9.2",
+    "ts-to-zod": "^3.15.0",
+    "tsx": "^4.19.3",
     "typescript": "^5",
     "typescript-eslint": "^8.28.0"
   }
