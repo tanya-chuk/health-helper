@@ -4,16 +4,24 @@ export const authConfig = {
   pages: {
     signIn: '/login',
   },
+  session: {
+    strategy: 'jwt',
+  },
   callbacks: {
-    authorized({ auth, request: { nextUrl } }) {
-      const isLoggedIn = Boolean(auth?.user);
-      const isOnAnamnesis = nextUrl.pathname.startsWith('/');
-      if (isOnAnamnesis) {
-        return isLoggedIn;
-      } else if (isLoggedIn) {
-        return Response.redirect(new URL('/anamnesis', nextUrl));
+    authorized({ auth }) {
+      return Boolean(auth?.user);
+    },
+    jwt({ token, user }) {
+      if (user) {
+        token.id = user.id;
       }
-      return true;
+      return token;
+    },
+    session({ session, token }) {
+      if (session.user) {
+        session.user.id = token.id as string;
+      }
+      return session;
     },
   },
   providers: [],

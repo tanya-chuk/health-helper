@@ -1,12 +1,19 @@
-import { NextResponse } from 'next/server';
+import { NextResponse, NextRequest } from 'next/server';
 import { Prisma, PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-export async function GET() {
+export async function GET(request: NextRequest) {
+  const { searchParams } = new URL(request.url);
+  const id = searchParams.get('id');
+
+  if (!id) {
+    return new NextResponse('Missing id', { status: 400 });
+  }
+
   try {
-    const patient = await prisma.patient.findUniqueOrThrow({
-      where: { id: 'cm9hdba3d0000mumsztewypp1' },
+    const patient = await prisma.patient.findFirstOrThrow({
+      where: { id },
       include: {
         bloodPressure: true,
         allergies: true,

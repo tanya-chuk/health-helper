@@ -12,12 +12,14 @@ class PatientStore {
     makeAutoObservable(this);
   }
 
-  async fetchPatient() {
+  async fetchPatient(id: string) {
     try {
       this.loading = true;
       this.pageState = 'loading';
 
-      const { data } = await axios.get<Patient>(`/api/patient`);
+      const { data } = await axios.get<Patient>(`/api/patient`, {
+        params: { id },
+      });
 
       runInAction(() => {
         this.patient = data;
@@ -32,6 +34,13 @@ class PatientStore {
       const errResponse = err instanceof AxiosError ? err.response : null;
       this.error = errResponse?.data || 'Ошибка загрузки';
     }
+  }
+
+  resetStore() {
+    this.patient = null;
+    this.loading = false;
+    this.error = null;
+    this.pageState = '';
   }
 }
 

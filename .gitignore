@@ -42,3 +42,4 @@ next-env.d.ts
 
 # personal
 /app/(routes)/anamnesis/mockData_personal.ts
+.vscode
