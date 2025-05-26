@@ -47,7 +47,6 @@ export type BadHabitsDTO = {
 export type PatientDTO = {
   name: string;
   birthDate: string;
-  age: number;
   height: number;
   weight: number;
   bloodPressure: BloodPressureDTO;
