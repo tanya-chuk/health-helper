@@ -1,9 +1,11 @@
 'use client';
 import React, { ReactElement, useEffect } from 'react';
 import { observer } from 'mobx-react-lite';
+import { useSession } from 'next-auth/react';
 import { Typography } from '@mui/material';
 import { useStores } from '@/app/stores/StoreContext';
-import { Anamnesis, Loader } from './ui';
+import { Loader } from '@/app/components/Loader';
+import { Anamnesis } from './ui';
 
 const pageStateConfig: { [key: string]: ReactElement | null } = {
   content: <Anamnesis />,
@@ -12,12 +14,16 @@ const pageStateConfig: { [key: string]: ReactElement | null } = {
 };
 
 const AnamnesisPage = observer(() => {
+  const session = useSession();
   const { patientStore } = useStores();
-  const { pageState } = patientStore;
+  const { pageState, patient } = patientStore;
+  const userId = session.data?.user?.id;
 
   useEffect(() => {
-    patientStore.fetchPatient();
-  }, []);
+    if (userId && !patient) {
+      patientStore.fetchPatient(userId);
+    }
+  }, [userId, patient]);
 
   return pageStateConfig[pageState];
 });

@@ -1,11 +1,10 @@
 'use client';
-import React, { useActionState, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { clsx } from 'clsx';
 import { usePathname } from 'next/navigation';
-import { Box, Stack } from '@mui/material';
-import { logout } from '@/app/lib/actions';
-import SignOut from '@/public/sign_out.svg';
-import { StyledBox, StyledButton, StyledLink } from './styled';
+import { Stack } from '@mui/material';
+import { StyledBox, StyledLink } from './styled';
+import { LogoutButton } from './LogoutButton';
 
 const paths = {
   '/anamnesis': {
@@ -33,7 +32,6 @@ const paths = {
 export const MainNavigation = () => {
   const pathname = usePathname();
   const [currentPath, setCurrentPath] = useState(pathname);
-  const [errorMessage, formAction] = useActionState(logout, undefined);
 
   useEffect(() => {
     setCurrentPath(pathname);
@@ -58,16 +56,7 @@ export const MainNavigation = () => {
         </Stack>
       </StyledBox>
       <StyledBox className="spacer" />
-      <Box component="form" action={formAction}>
-        <StyledButton
-          type="submit"
-          variant="text"
-          startIcon={<SignOut width={24} />}
-        >
-          Выйти
-        </StyledButton>
-        {errorMessage && <p>{errorMessage}</p>}
-      </Box>
+      <LogoutButton />
     </StyledBox>
   );
 };

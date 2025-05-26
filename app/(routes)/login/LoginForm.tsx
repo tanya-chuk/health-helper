@@ -2,11 +2,14 @@
 import React, { useActionState } from 'react';
 import { Box, Button, TextField, Typography } from '@mui/material';
 import { authenticate } from '@/app/lib/actions';
+import { AUTH_GATE_URL, AUTH_NEXT_URL } from '@/app/constants';
 import { useSearchParams } from 'next/navigation';
 
 export const LoginForm = () => {
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get('callbackUrl') || '/anamnesis';
+  localStorage.setItem(AUTH_NEXT_URL, callbackUrl);
+
   const [errorMessage, formAction, isPending] = useActionState(
     authenticate,
     undefined,
@@ -40,7 +43,7 @@ export const LoginForm = () => {
           slotProps={{ htmlInput: { minLength: 6 } }}
         />
       </Box>
-      <TextField hidden type="hidden" name="redirectTo" value={callbackUrl} />
+      <TextField hidden type="hidden" name="redirectTo" value={AUTH_GATE_URL} />
       {errorMessage && <Typography>{errorMessage}</Typography>}
       <Button
         aria-disabled={isPending}
