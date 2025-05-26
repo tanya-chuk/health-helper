@@ -50,7 +50,6 @@ export const badHabitsDTOSchema = z.object({
 export const patientDTOSchema = z.object({
   name: z.string(),
   birthDate: z.string(),
-  age: z.number(),
   height: z.number(),
   weight: z.number(),
   bloodPressure: bloodPressureDTOSchema,

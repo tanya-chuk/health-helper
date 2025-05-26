@@ -72,7 +72,6 @@ model BloodPressure {
 model Patient {
   id            String                @id @default(cuid())
   name          String
-  age           Int
   createdAt     DateTime              @default(now())
   height        Int
   weight        Int

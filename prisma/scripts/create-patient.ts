@@ -29,7 +29,6 @@ rl.question(
         data: {
           name: dto.name,
           birthDate: new Date(dto.birthDate),
-          age: dto.age,
           height: dto.height,
           weight: dto.weight,
           email: dto.email,

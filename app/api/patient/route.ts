@@ -1,5 +1,6 @@
 import { NextResponse, NextRequest } from 'next/server';
 import { Prisma, PrismaClient } from '@prisma/client';
+import { differenceInYears } from 'date-fns';
 
 const prisma = new PrismaClient();
 
@@ -27,7 +28,15 @@ export async function GET(request: NextRequest) {
         },
       },
     });
-    return NextResponse.json(patient);
+
+    const patientWithAge = {
+      ...patient,
+      age: patient.birthDate
+        ? differenceInYears(new Date(), patient.birthDate)
+        : 0,
+    };
+
+    return NextResponse.json(patientWithAge);
   } catch (err: unknown) {
     if (
       err instanceof Prisma.PrismaClientKnownRequestError &&
