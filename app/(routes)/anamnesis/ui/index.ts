@@ -1,5 +1,5 @@
 export { ChronicIllness } from './ChronicIllness';
-export { Operations } from './Operations';
+export { Surgeries } from './Surgeries';
 export { Medications } from './Medications';
 export { FamilyHistory } from './FamilyHistory';
 export { Allergies } from './Allergies';

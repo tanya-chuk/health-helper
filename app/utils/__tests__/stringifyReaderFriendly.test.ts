@@ -8,4 +8,8 @@ describe('Checks stringifyReaderFriendly function', () => {
   test('Returns empty string for an empty array', () => {
     expect(stringifyReaderFriendly([])).toBe('');
   });
+
+  test('Returns empty string for an empty argument list', () => {
+    expect(stringifyReaderFriendly()).toBe('');
+  });
 });

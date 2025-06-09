@@ -1,15 +1,16 @@
 'use client';
 import React from 'react';
-import Logo from '@/public/sparkles.svg';
+import { Logo } from '@/public/icons';
 import { StyledAppBar, StyledBox, StyledTypography } from './styled';
 
 export const AppBar = () => {
   return (
     <StyledAppBar position="static">
       <StyledBox className="logoBlock">
-        <Logo width={45} height={55} />
+        <Logo width={64} height={64} />
         <StyledTypography variant="h4" className="logoTitle">
-          Health Helper
+          Health <br />
+          Helper
         </StyledTypography>
       </StyledBox>
     </StyledAppBar>

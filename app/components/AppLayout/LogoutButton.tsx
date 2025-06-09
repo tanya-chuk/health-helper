@@ -4,7 +4,7 @@ import { observer } from 'mobx-react-lite';
 import { Box } from '@mui/material';
 import { useStores } from '@/app/stores/StoreContext';
 import { logout } from '@/app/lib/actions';
-import SignOut from '@/public/sign_out.svg';
+import { SignOut } from '@/public/icons';
 import { StyledButton } from './styled';
 
 export const LogoutButton = observer(() => {
