@@ -2,7 +2,7 @@
 import React, { ReactNode } from 'react';
 import { AppBar } from './AppBar';
 import { MainNavigation } from './MainNavigation';
-import { StyledBox, StyledCard } from './styled';
+import { StyledBox, ContentArea } from './styled';
 
 interface Props {
   children: ReactNode;
@@ -14,7 +14,7 @@ export const AppLayout = ({ children }: Props) => {
       <AppBar />
       <StyledBox className="contentLayout">
         <MainNavigation />
-        <StyledCard>{children}</StyledCard>
+        <ContentArea>{children}</ContentArea>
       </StyledBox>
     </>
   );

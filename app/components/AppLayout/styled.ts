@@ -1,90 +1,96 @@
 import Link from 'next/link';
-import { AppBar, Box, Button, Card, Typography } from '@mui/material';
+import { AppBar, Box, Button, Theme, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
-const interactiveItemStyles = {
-  height: '44px',
-  background: '#f7f9fa',
-  borderRadius: '6px',
-  margin: '2px 0',
-  padding: 10,
+const interactiveItemStyles = ({ spacing, palette }: Theme) => ({
+  height: 55,
+  borderRadius: '12px',
+  padding: `${spacing(1)} ${spacing(2)}`,
+  margin: `${spacing(0.25)} 0`,
+  alignContent: 'center',
   '&.active': {
-    background: '#d1e3fa',
+    background: palette.primary.main,
   },
   '&:hover': {
-    background: '#ecf0f4',
+    background: palette.primary.light,
   },
-};
-export const StyledLink = styled(Link)({
-  ...interactiveItemStyles,
-  padding: 10,
-});
-
-export const StyledBox = styled(Box)({
-  '&.contentLayout': {
-    height: 'calc(100vh - 105px)',
-    display: 'grid',
-    gridTemplateColumns: '200px 1fr',
-    gap: '10px',
-    margin: '8px',
-  },
-  '&.mainBox': {
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  '&.spacer': {
-    flexGrow: 1,
-    background: '#f7f9fa',
-    borderRadius: '8px',
-    margin: '2px 0',
-  },
-  '&.logoBox': {
-    height: 130,
-    display: 'flex',
-    alignItems: 'flex-end',
-    padding: '10px',
-    borderRadius: '8px',
-    background: '#8cb4e9',
-    color: 'white',
-  },
-  '&.logoBlock': {
-    display: 'flex',
-    alignItems: 'center',
+  '&:first-child': {
+    marginTop: 0,
   },
 });
 
-export const StyledButton = styled(Button)({
-  ...interactiveItemStyles,
+export const StyledLink = styled(Link)(({ theme }) =>
+  interactiveItemStyles(theme),
+);
+
+export const StyledButton = styled(Button)(({ theme }) => ({
+  ...interactiveItemStyles(theme),
   width: '100%',
   fontSize: 'inherit',
   fontWeight: 'inherit',
   color: 'inherit',
   textTransform: 'none',
   justifyContent: 'flex-start',
-});
+}));
 
-export const StyledCard = styled(Card)({
-  padding: '16px',
-  overflow: 'auto',
-});
-
-export const StyledAppBar = styled(AppBar)({
-  '&.MuiAppBar-root': {
-    height: 82,
-    width: 'auto',
+export const StyledBox = styled(Box)(({ theme: { spacing, palette } }) => ({
+  '&.contentLayout': {
+    background: palette.background.default,
+    height: 'calc(100vh - 96px)',
+    display: 'grid',
+    gridTemplateColumns: '240px 1fr',
+    gap: spacing(1),
+    paddingLeft: spacing(3),
+  },
+  '&.navigation': {
     display: 'flex',
-    padding: '15px',
-    margin: '6px',
+    flexDirection: 'column',
+    paddingTop: spacing(3),
+  },
+  '&.spacer': {
+    flexGrow: 1,
     borderRadius: '8px',
-    background: '#8cb4e9',
-    boxShadow: 'none',
+    margin: `${spacing(0.25)} 0`,
   },
-});
+  '&.logoBlock': {
+    height: 64,
+    display: 'flex',
+    alignItems: 'center',
+  },
+}));
 
-export const StyledTypography = styled(Typography)({
-  '&.logoTitle': {
-    lineHeight: 1,
-    fontWeight: 600,
-    paddingLeft: 8,
-  },
-});
+export const ContentArea = styled('div')(({ theme: { spacing } }) => ({
+  overflow: 'auto',
+  padding: `${spacing(3)} ${spacing(2)}`,
+  scrollbarGutter: 'stable',
+}));
+
+export const StyledAppBar = styled(AppBar)(
+  ({ theme: { spacing, palette } }) => ({
+    '&.MuiAppBar-root': {
+      height: 96,
+      width: 'auto',
+      display: 'flex',
+      padding: `${spacing(2)} ${spacing(3)}`,
+      background: `linear-gradient(90deg, ${palette.background.default} 0%, ${palette.primary.dark} 100%)`,
+      boxShadow: 'none',
+    },
+  }),
+);
+
+export const StyledTypography = styled(Typography)(
+  ({ theme: { spacing, palette } }) => ({
+    '&.logoTitle': {
+      height: 60,
+      display: 'flex',
+      alignItems: 'center',
+      fontFamily: 'Rubik',
+      lineHeight: 1.2,
+      fontWeight: 500,
+      fontSize: '26px',
+      paddingLeft: spacing(2),
+      color: palette.text.secondary,
+      letterSpacing: '1.8px',
+    },
+  }),
+);
