@@ -22,6 +22,7 @@ export const ChronicIllness = observer(
   ({ patient: { id, birthDate } }: Props) => {
     const {
       illnessStore: { list, addIllness },
+      snackbarStore: { showSnackbar },
     } = useStores();
 
     const defaultValues = {
@@ -69,12 +70,15 @@ export const ChronicIllness = observer(
       });
     };
 
+    const handleError = () => showSnackbar('networkError');
+
     return (
       <EditableTable<FormProps>
         columns={columns}
         rows={rows}
         defaultValues={defaultValues}
         submitData={handleSubmit}
+        onError={handleError}
       />
     );
   },

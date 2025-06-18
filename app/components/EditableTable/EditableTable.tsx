@@ -22,6 +22,7 @@ export function EditableTable<T extends object>({
   rows,
   defaultValues,
   submitData,
+  onError,
 }: Props<T>) {
   const [isEditing, setIsEditing] = useState(false);
 
@@ -47,7 +48,9 @@ export function EditableTable<T extends object>({
       setIsEditing(false);
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (e) {
-      /* empty */
+      if (onError) {
+        onError();
+      }
     }
   };
 

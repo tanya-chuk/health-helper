@@ -22,4 +22,5 @@ export type TableProps<T extends object> = {
   rows: Array<Array<string>>;
   defaultValues: DefaultValues<T>;
   submitData: (params: T) => Promise<unknown>;
+  onError?: (args?: unknown) => void;
 };
