@@ -1,6 +1,5 @@
 'use client';
 import React, { ReactNode } from 'react';
-import { nanoid } from 'nanoid';
 import { observer } from 'mobx-react-lite';
 import { Snackbar, Alert } from '@mui/material';
 import { styled } from '@mui/material/styles';
@@ -22,9 +21,9 @@ export const SnackbarProvider = observer(
     return (
       <>
         {children}
-        {Object.values(snackbars).map((item: SnackbarType) => (
+        {Object.values(snackbars).map((item: SnackbarType, i) => (
           <Snackbar
-            key={nanoid()}
+            key={item.name + i}
             open={item.open}
             autoHideDuration={item.duration}
             onClose={() => clearSnackbar(item.name)}

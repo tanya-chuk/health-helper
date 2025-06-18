@@ -1,6 +1,7 @@
 import { SxProps } from '@mui/material';
 import { HTMLInputTypeAttribute } from 'react';
 import { DefaultValues } from 'react-hook-form';
+import { SelectOption } from '../Select';
 
 export type InputType =
   | Extract<HTMLInputTypeAttribute, 'text' | 'number'>
@@ -15,12 +16,13 @@ export type TableColumn<T extends string> = {
   type: InputValue;
   required?: boolean;
   styles?: SxProps;
+  options?: Array<SelectOption>;
 };
 
 export type TableProps<T extends object> = {
   columns: Array<TableColumn<Extract<keyof T, string>>>;
-  rows: Array<Array<string>>;
-  defaultValues: DefaultValues<T>;
+  rows: Array<Array<string | number>>;
+  defaultValues?: DefaultValues<T>;
   submitData: (params: T) => Promise<unknown>;
   onError?: (args?: unknown) => void;
 };

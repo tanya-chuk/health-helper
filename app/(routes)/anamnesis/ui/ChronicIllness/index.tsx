@@ -2,7 +2,7 @@
 import React from 'react';
 import { differenceInYears } from 'date-fns';
 import { pluralizeAge } from '@/app/utils';
-import { CURRENT_YEAR } from '@/app/constants';
+import { CURRENT_YEAR, YEARS_LIST } from '@/app/constants';
 import { Patient } from '@/app/types';
 import { observer } from 'mobx-react-lite';
 import { useStores } from '@/app/stores/StoreContext';
@@ -45,6 +45,7 @@ export const ChronicIllness = observer(
         name: 'Год дебюта',
         input: 'select',
         type: 'number',
+        options: YEARS_LIST,
         required: true,
       },
       {

@@ -2,6 +2,7 @@ import { makeAutoObservable, runInAction } from 'mobx';
 import axios, { AxiosError } from 'axios';
 import { Patient } from '@/app/types';
 import { illnessStore } from './illnessStore';
+import { surgeriesStore } from './surgeriesStore';
 
 class PatientStore {
   patient: Patient | null = null;
@@ -28,6 +29,7 @@ class PatientStore {
         this.pageState = 'content';
 
         illnessStore.initStore(data.illness);
+        surgeriesStore.initStore(data.operations);
       });
     } catch (err: unknown) {
       this.loading = false;

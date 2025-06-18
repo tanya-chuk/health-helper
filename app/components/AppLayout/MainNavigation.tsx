@@ -1,7 +1,6 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import { clsx } from 'clsx';
-import { nanoid } from 'nanoid';
 import { usePathname } from 'next/navigation';
 import { Stack, Typography } from '@mui/material';
 import { StyledBox, StyledLink } from './styled';
@@ -41,13 +40,13 @@ export const MainNavigation = () => {
   return (
     <StyledBox className="navigation">
       <Stack>
-        {Object.values(paths).map(({ name, href }) => {
+        {Object.values(paths).map(({ id, name, href }) => {
           const isActive = currentPath === href;
           return (
             <StyledLink
               className={clsx(isActive && 'active')}
               href={href}
-              key={nanoid()}
+              key={id}
             >
               <Typography variant="subtitle1" component="p">
                 {name}

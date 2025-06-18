@@ -1,6 +1,5 @@
 'use client';
 import React, { useState } from 'react';
-import { nanoid } from 'nanoid';
 import { useForm, SubmitHandler, Path } from 'react-hook-form';
 import {
   Box,
@@ -15,7 +14,6 @@ import {
 } from '@mui/material';
 import { Select } from '@/app/components/Select';
 import { Plus } from '@/public/icons';
-import { YEARS_LIST } from '@/app/constants';
 import { TableProps as Props } from './types';
 import { StyledBox, StyledTableRow, StyledButton } from './styled';
 
@@ -82,16 +80,19 @@ export function EditableTable<T extends object>({
           <TableHead>
             <TableRow>
               {columns.map((column) => (
-                <TableCell key={nanoid()}>{column.name}</TableCell>
+                <TableCell key={column.id}>{column.name}</TableCell>
               ))}
             </TableRow>
           </TableHead>
           <TableBody>
             {rows.map((row, i) => (
-              <StyledTableRow key={nanoid()}>
+              <StyledTableRow key={String(row) + i}>
                 {row.map((rowItem) => {
                   return (
-                    <TableCell key={nanoid()} {...getHeaderCellProps(i)}>
+                    <TableCell
+                      key={String(rowItem) + i}
+                      {...getHeaderCellProps(i)}
+                    >
                       {rowItem}
                     </TableCell>
                   );
@@ -108,13 +109,13 @@ export function EditableTable<T extends object>({
                       return (
                         <Select
                           id={column.id}
+                          options={column.options || []}
                           value={watch(column.id as unknown as Path<T>)}
-                          options={YEARS_LIST}
-                          sx={column.styles}
                           {...register(column.id as unknown as Path<T>, {
                             required: column.required,
                             valueAsNumber: isNumericValue,
                           })}
+                          sx={column.styles}
                         />
                       );
                     }
@@ -134,7 +135,7 @@ export function EditableTable<T extends object>({
                   };
 
                   return (
-                    <TableCell key={nanoid()} {...getHeaderCellProps(i)}>
+                    <TableCell key={column.id} {...getHeaderCellProps(i)}>
                       {renderInput()}
                     </TableCell>
                   );

@@ -1,20 +1,21 @@
 import React from 'react';
-import { nanoid } from 'nanoid';
 import TextField, { TextFieldProps } from '@mui/material/TextField';
 import { MenuItem } from '@mui/material';
 
+export type SelectOption = {
+  value: string | number;
+  name: string | number;
+};
+
 type Props = TextFieldProps & {
-  options: Array<{
-    value: string | number;
-    name: string | number;
-  }>;
+  options: Array<SelectOption>;
 };
 
 export const Select = ({ options, ...props }: Props) => {
   return (
     <TextField select fullWidth variant="standard" {...props}>
-      {options.map((option) => (
-        <MenuItem key={nanoid()} value={option.value}>
+      {options.map((option, i) => (
+        <MenuItem key={String(option.name) + i} value={option.value}>
           {option.name}
         </MenuItem>
       ))}

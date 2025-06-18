@@ -1,6 +1,5 @@
 'use client';
 import React from 'react';
-import { nanoid } from 'nanoid';
 import {
   Box,
   Table,
@@ -42,13 +41,13 @@ export const Medications = ({ list }: Props) => {
         </TableHead>
         <TableBody>
           {list.map((item) => (
-            <StyledTableRow key={nanoid()}>
+            <StyledTableRow key={item.id}>
               <TableCell component="th" scope="row">
                 {item.name}
               </TableCell>
               <TableCell>
                 {item.periods.map((period) => (
-                  <StyledBox key={nanoid()} className="period">
+                  <StyledBox key={period.id} className="period">
                     {formatDate(period.start)} –&nbsp;
                     {period.end ? formatDate(period.end) : 'н.в.'}
                   </StyledBox>

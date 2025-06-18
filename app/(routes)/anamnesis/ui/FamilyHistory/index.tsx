@@ -1,6 +1,5 @@
 'use client';
 import React from 'react';
-import { nanoid } from 'nanoid';
 import {
   Box,
   Table,
@@ -33,7 +32,7 @@ export const FamilyHistory = ({ list }: Props) => {
         </TableHead>
         <TableBody>
           {list.map((item) => (
-            <StyledTableRow key={nanoid()}>
+            <StyledTableRow key={item.id}>
               <TableCell>{item.case}</TableCell>
               <TableCell>{item.person}</TableCell>
             </StyledTableRow>

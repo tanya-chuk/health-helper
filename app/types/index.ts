@@ -34,11 +34,14 @@ export type Illness = IllnessBase & { id: string };
 export type NewIllness = IllnessBase;
 
 // TO-DO: переименовать в Surgery
-export interface Operation {
-  id: string;
+export interface OperationBase {
+  patientId: string;
   year: number;
   case: string;
 }
+
+export type Operation = OperationBase & { id: string };
+export type NewOperation = OperationBase;
 
 export interface MedicationIntakePeriod {
   id: string;
