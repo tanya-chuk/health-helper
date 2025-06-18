@@ -2,16 +2,20 @@ import React from 'react';
 import { nanoid } from 'nanoid';
 import TextField, { TextFieldProps } from '@mui/material/TextField';
 import { MenuItem } from '@mui/material';
-import { CURRENT_YEAR } from '@/app/constants';
 
-const YEARS = Array.from(new Array(100), (val, index) => CURRENT_YEAR - index);
+type Props = TextFieldProps & {
+  options: Array<{
+    value: string | number;
+    name: string | number;
+  }>;
+};
 
-export const YearSelect = (props: TextFieldProps) => {
+export const Select = ({ options, ...props }: Props) => {
   return (
     <TextField select fullWidth variant="standard" {...props}>
-      {YEARS.map((year) => (
-        <MenuItem key={nanoid()} value={year}>
-          {year}
+      {options.map((option) => (
+        <MenuItem key={nanoid()} value={option.value}>
+          {option.name}
         </MenuItem>
       ))}
     </TextField>

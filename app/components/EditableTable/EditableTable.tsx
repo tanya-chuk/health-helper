@@ -1,6 +1,7 @@
 'use client';
 import React, { useState } from 'react';
 import { nanoid } from 'nanoid';
+import { useForm, SubmitHandler, Path } from 'react-hook-form';
 import {
   Box,
   Table,
@@ -12,9 +13,9 @@ import {
   TextField,
   TableCellProps,
 } from '@mui/material';
-import { useForm, SubmitHandler, Path } from 'react-hook-form';
-import { YearSelect } from '@/app/components/YearSelect';
+import { Select } from '@/app/components/Select';
 import { Plus } from '@/public/icons';
+import { YEARS_LIST } from '@/app/constants';
 import { TableProps as Props } from './types';
 import { StyledBox, StyledTableRow, StyledButton } from './styled';
 
@@ -64,6 +65,16 @@ export function EditableTable<T extends object>({
     reset(defaultValues);
   };
 
+  const getHeaderCellProps = (i: number) => {
+    if (i) {
+      return {};
+    }
+    return {
+      component: 'th' as TableCellProps['component'],
+      scope: 'row',
+    };
+  };
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <TableContainer component={Box}>
@@ -79,14 +90,8 @@ export function EditableTable<T extends object>({
             {rows.map((row, i) => (
               <StyledTableRow key={nanoid()}>
                 {row.map((rowItem) => {
-                  const cellProps = i
-                    ? {}
-                    : {
-                        component: 'th' as TableCellProps['component'],
-                        scope: 'row',
-                      };
                   return (
-                    <TableCell key={nanoid()} {...cellProps}>
+                    <TableCell key={nanoid()} {...getHeaderCellProps(i)}>
                       {rowItem}
                     </TableCell>
                   );
@@ -96,27 +101,24 @@ export function EditableTable<T extends object>({
             {isEditing && (
               <StyledTableRow>
                 {columns.map((column, i) => {
-                  const cellProps = i
-                    ? {}
-                    : {
-                        component: 'th' as TableCellProps['component'],
-                        scope: 'row',
-                      };
+                  const isNumericValue = Boolean(column.type === 'number');
 
                   const renderInput = () => {
                     if (column.input === 'select') {
                       return (
-                        <YearSelect
+                        <Select
                           id={column.id}
                           value={watch(column.id as unknown as Path<T>)}
+                          options={YEARS_LIST}
+                          sx={column.styles}
                           {...register(column.id as unknown as Path<T>, {
                             required: column.required,
-                            valueAsNumber: Boolean(column.type === 'number'),
+                            valueAsNumber: isNumericValue,
                           })}
-                          sx={column.styles}
                         />
                       );
                     }
+
                     return (
                       <TextField
                         id={column.id}
@@ -125,14 +127,14 @@ export function EditableTable<T extends object>({
                         sx={column.styles}
                         {...register(column.id as unknown as Path<T>, {
                           required: column.required,
-                          valueAsNumber: Boolean(column.type === 'number'),
+                          valueAsNumber: isNumericValue,
                         })}
                       />
                     );
                   };
 
                   return (
-                    <TableCell key={nanoid()} {...cellProps}>
+                    <TableCell key={nanoid()} {...getHeaderCellProps(i)}>
                       {renderInput()}
                     </TableCell>
                   );
