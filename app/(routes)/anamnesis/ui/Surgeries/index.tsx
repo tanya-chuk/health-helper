@@ -1,5 +1,6 @@
 'use client';
 import React from 'react';
+import { nanoid } from 'nanoid';
 import {
   Box,
   Table,
@@ -32,7 +33,7 @@ export const Surgeries = ({ list }: Props) => {
         </TableHead>
         <TableBody>
           {list.map((item) => (
-            <StyledTableRow key={item.id}>
+            <StyledTableRow key={nanoid()}>
               <TableCell>{item.year}</TableCell>
               <TableCell>{item.case}</TableCell>
             </StyledTableRow>

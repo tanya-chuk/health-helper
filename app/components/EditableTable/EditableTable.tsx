@@ -1,5 +1,6 @@
 'use client';
 import React, { useState } from 'react';
+import { nanoid } from 'nanoid';
 import {
   Box,
   Table,
@@ -70,13 +71,13 @@ export function EditableTable<T extends object>({
           <TableHead>
             <TableRow>
               {columns.map((column) => (
-                <TableCell key={column.id}>{column.name}</TableCell>
+                <TableCell key={nanoid()}>{column.name}</TableCell>
               ))}
             </TableRow>
           </TableHead>
           <TableBody>
             {rows.map((row, i) => (
-              <StyledTableRow key={i}>
+              <StyledTableRow key={nanoid()}>
                 {row.map((rowItem) => {
                   const cellProps = i
                     ? {}
@@ -85,7 +86,7 @@ export function EditableTable<T extends object>({
                         scope: 'row',
                       };
                   return (
-                    <TableCell key={rowItem} {...cellProps}>
+                    <TableCell key={nanoid()} {...cellProps}>
                       {rowItem}
                     </TableCell>
                   );
@@ -131,7 +132,7 @@ export function EditableTable<T extends object>({
                   };
 
                   return (
-                    <TableCell key={column.id} {...cellProps}>
+                    <TableCell key={nanoid()} {...cellProps}>
                       {renderInput()}
                     </TableCell>
                   );
