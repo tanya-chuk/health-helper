@@ -15,6 +15,9 @@ const theme = createTheme({
       main: '#D8ECFF',
       dark: '#81BDF3',
     },
+    secondary: {
+      main: '#5A84AA',
+    },
   },
   typography: {
     fontFamily: 'var(--font-inter), var(--font-rubik), Arial, sans-serif',
@@ -25,6 +28,9 @@ const theme = createTheme({
     },
     subtitle1: {
       fontSize: 20,
+    },
+    button: {
+      fontSize: 18,
     },
   },
   components: {

@@ -1,7 +1,19 @@
+import { AlertColor } from '@mui/material';
+
 export interface User {
   id: string;
   name: string;
   email: string;
+}
+
+export type SnackbarNames = 'networkError';
+
+export interface Snackbar {
+  name: SnackbarNames;
+  open: boolean;
+  message: string;
+  severity: AlertColor;
+  duration: number;
 }
 
 export interface BloodPressure {
@@ -9,14 +21,17 @@ export interface BloodPressure {
   diastolic: number;
 }
 
-export interface Illness {
-  id: string;
+export interface IllnessBase {
+  patientId: string;
   case: string;
-  category: string;
+  category?: string;
   age: number;
   year: number;
   notes?: string;
 }
+
+export type Illness = IllnessBase & { id: string };
+export type NewIllness = IllnessBase;
 
 // TO-DO: переименовать в Surgery
 export interface Operation {

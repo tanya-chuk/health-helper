@@ -8,6 +8,7 @@ export { default as HeartDanger } from './HeartDanger';
 export { default as HeartOk } from './HeartOk';
 export { default as Logo } from './Logo';
 export { default as Next } from './Next';
+export { default as Plus } from './Plus';
 export { default as Pressure } from './Pressure';
 export { default as Ruler } from './Ruler';
 export { default as Scales } from './Scales';
