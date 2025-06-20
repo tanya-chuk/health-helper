@@ -11,7 +11,7 @@ export type IllnessDTO = {
   notes?: string;
 };
 
-export type OperationDTO = {
+export type SurgeryDTO = {
   year: number;
   case: string;
 };
@@ -58,7 +58,7 @@ export type PatientDTO = {
   weight: number;
   bloodPressure: BloodPressureDTO;
   illness: IllnessDTO[];
-  operations: OperationDTO[];
+  surgeries: SurgeryDTO[];
   medications: MedicationDTO[];
   familyHistory: FamilyHistoryRecordDTO[];
   allergies: AllergiesDTO;

@@ -14,7 +14,7 @@ export const illnessDTOSchema = z.object({
   notes: z.string().optional(),
 });
 
-export const operationDTOSchema = z.object({
+export const surgeryDTOSchema = z.object({
   year: z.number(),
   case: z.string(),
 });
@@ -61,7 +61,7 @@ export const patientDTOSchema = z.object({
   weight: z.number(),
   bloodPressure: bloodPressureDTOSchema,
   illness: z.array(illnessDTOSchema),
-  operations: z.array(operationDTOSchema),
+  surgeries: z.array(surgeryDTOSchema),
   medications: z.array(medicationDTOSchema),
   familyHistory: z.array(familyHistoryRecordDTOSchema),
   allergies: allergiesDTOSchema,

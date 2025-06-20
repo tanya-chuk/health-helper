@@ -64,7 +64,7 @@ rl.question(
             })),
           },
 
-          operations: { create: dto.operations },
+          surgeries: { create: dto.surgeries },
           badHabits: dto.badHabits,
         },
       });

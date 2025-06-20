@@ -39,6 +39,7 @@ export const Surgeries = observer(({ patientId }: Props) => {
       type: 'number',
       options: YEARS_LIST,
       required: true,
+      styles: { width: 100 },
     },
     {
       id: 'case',
@@ -46,6 +47,7 @@ export const Surgeries = observer(({ patientId }: Props) => {
       input: 'text',
       type: 'string',
       required: true,
+      styles: { width: '100%' },
     },
   ];
 

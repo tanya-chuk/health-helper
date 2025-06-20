@@ -35,7 +35,7 @@ model Medication {
   periods   MedicationIntakePeriod[]
 }
 
-model Operation {
+model Surgery {
   id        String  @id @default(cuid())
   year      Int
   case      String
@@ -81,7 +81,7 @@ model Patient {
   familyHistory FamilyHistoryRecord[]
   illness       Illness[]
   medications   Medication[]
-  operations    Operation[]
+  surgeries    Surgery[]
   badHabits     Json?
   bloodPressure BloodPressure?
   email         String

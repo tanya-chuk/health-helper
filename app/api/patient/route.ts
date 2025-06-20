@@ -24,7 +24,7 @@ export async function GET(request: NextRequest) {
           },
         },
         illness: true,
-        operations: true,
+        surgeries: true,
         medications: {
           include: {
             periods: true,

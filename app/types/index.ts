@@ -33,15 +33,14 @@ export interface IllnessBase {
 export type Illness = IllnessBase & { id: string };
 export type NewIllness = IllnessBase;
 
-// TO-DO: переименовать в Surgery
-export interface OperationBase {
+export interface SurgeryBase {
   patientId: string;
   year: number;
   case: string;
 }
 
-export type Operation = OperationBase & { id: string };
-export type NewOperation = OperationBase;
+export type Surgery = SurgeryBase & { id: string };
+export type NewSurgery = SurgeryBase;
 
 export interface MedicationIntakePeriod {
   id: string;
@@ -86,7 +85,7 @@ export interface Patient {
   weight: number;
   bloodPressure: BloodPressure;
   illness: Array<Illness>;
-  operations: Array<Operation>; // TO-DO: переименовать в Surgeries
+  surgeries: Array<Surgery>;
   medications: Array<Medication>;
   familyHistory: Array<FamilyHistoryRecord>;
   allergies: Allergies;

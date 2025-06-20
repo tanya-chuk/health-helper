@@ -1,19 +1,19 @@
 import { makeAutoObservable, runInAction } from 'mobx';
 import axios, { AxiosResponse } from 'axios';
-import { Operation, NewOperation } from '@/app/types';
+import { Surgery, NewSurgery } from '@/app/types';
 
 class SurgeriesStore {
-  list: Array<Operation> = [];
+  list: Array<Surgery> = [];
 
   constructor() {
     makeAutoObservable(this);
   }
 
-  initStore(list: Array<Operation>) {
+  initStore(list: Array<Surgery>) {
     this.list = list;
   }
 
-  addSurgery = async (surgery: NewOperation) => {
+  addSurgery = async (surgery: NewSurgery) => {
     const list: AxiosResponse = await axios.post(`/api/surgery`, surgery);
 
     runInAction(() => {

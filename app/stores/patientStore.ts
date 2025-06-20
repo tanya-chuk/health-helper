@@ -30,7 +30,7 @@ class PatientStore {
         this.pageState = 'content';
 
         illnessStore.initStore(data.illness);
-        surgeriesStore.initStore(data.operations);
+        surgeriesStore.initStore(data.surgeries);
         familyHistoryStore.initStore(data.familyHistory);
       });
     } catch (err: unknown) {
