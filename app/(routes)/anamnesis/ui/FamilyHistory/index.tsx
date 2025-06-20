@@ -1,44 +1,71 @@
 'use client';
 import React from 'react';
-import {
-  Box,
-  Table,
-  TableContainer,
-  TableHead,
-  TableRow,
-  TableCell,
-  TableBody,
-} from '@mui/material';
-import { FamilyHistoryRecord } from '@/app/types';
-import { StyledTableRow } from './styled';
+import { observer } from 'mobx-react-lite';
+import { Patient, Relative } from '@/app/types';
+import { EditableTable, TableColumn } from '@/app/components/EditableTable';
+import { useStores } from '@/app/stores/StoreContext';
 
 interface Props {
-  list: Array<FamilyHistoryRecord>;
+  patientId: Patient['id'];
 }
 
-export const FamilyHistory = ({ list }: Props) => {
-  if (!list.length) {
-    return <Box>Нет данных</Box>;
-  }
+interface FormProps {
+  case: string;
+  relative: Relative;
+}
+
+export const FamilyHistory = observer(({ patientId }: Props) => {
+  const {
+    familyHistoryStore: { list, relativeTypes, addEntry },
+    snackbarStore: { showSnackbar },
+  } = useStores();
+
+  const defaultValues = {
+    case: '',
+    relative: {
+      id: '',
+      name: '',
+      value: '',
+    },
+  };
+
+  const columns: Array<TableColumn<keyof FormProps>> = [
+    {
+      id: 'case',
+      name: 'Случай',
+      input: 'text',
+      type: 'string',
+      required: true,
+    },
+    {
+      id: 'relative',
+      name: 'Родственник',
+      input: 'select',
+      type: 'string',
+      required: true,
+      options: relativeTypes,
+    },
+  ];
+
+  const rows = list.map((item) =>
+    Object.values(columns).map(({ id }) => item[id]),
+  );
+
+  const handleSubmit = async (data: FormProps) =>
+    await addEntry({
+      ...data,
+      patientId,
+    });
+
+  const handleError = () => showSnackbar('networkError');
 
   return (
-    <TableContainer component={Box}>
-      <Table>
-        <TableHead>
-          <TableRow>
-            <TableCell>Случай</TableCell>
-            <TableCell>Родственник</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {list.map((item) => (
-            <StyledTableRow key={item.id}>
-              <TableCell>{item.case}</TableCell>
-              <TableCell>{item.person}</TableCell>
-            </StyledTableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+    <EditableTable<FormProps>
+      rows={rows}
+      columns={columns}
+      submitData={handleSubmit}
+      onError={handleError}
+      defaultValues={defaultValues}
+    />
   );
-};
+});

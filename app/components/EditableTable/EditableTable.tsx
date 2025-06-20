@@ -1,6 +1,6 @@
 'use client';
 import React, { useState } from 'react';
-import { useForm, SubmitHandler, Path } from 'react-hook-form';
+import { useForm, SubmitHandler, Path, Controller } from 'react-hook-form';
 import {
   Box,
   Table,
@@ -14,7 +14,7 @@ import {
 } from '@mui/material';
 import { Select } from '@/app/components/Select';
 import { Plus } from '@/public/icons';
-import { TableProps as Props } from './types';
+import { TableProps as Props, isSelectOption } from './types';
 import { StyledBox, StyledTableRow, StyledButton } from './styled';
 
 export function EditableTable<T extends object>({
@@ -27,19 +27,15 @@ export function EditableTable<T extends object>({
   const [isEditing, setIsEditing] = useState(false);
 
   const {
+    control,
     register,
     reset,
-    watch,
     handleSubmit,
     formState: { isValid },
   } = useForm<T>({
     mode: 'onChange',
     defaultValues,
   });
-
-  if (!rows.length) {
-    return <Box>Нет данных</Box>;
-  }
 
   const onSubmit: SubmitHandler<T> = async (data) => {
     try {
@@ -73,6 +69,20 @@ export function EditableTable<T extends object>({
     };
   };
 
+  if (!rows.length) {
+    return (
+      <>
+        <Box>Нет данных</Box>
+        <StyledButton
+          onClick={openEditForm}
+          startIcon={<Plus width={22} height={22} />}
+        >
+          Добавить запись
+        </StyledButton>
+      </>
+    );
+  }
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <TableContainer component={Box}>
@@ -87,13 +97,14 @@ export function EditableTable<T extends object>({
           <TableBody>
             {rows.map((row, i) => (
               <StyledTableRow key={String(row) + i}>
-                {row.map((rowItem) => {
+                {row.map((cell) => {
+                  const isSelectCell = isSelectOption(cell);
+                  const cellKey = isSelectCell ? cell.id : String(cell) + i;
+                  const cellName = isSelectCell ? cell.name : cell;
+
                   return (
-                    <TableCell
-                      key={String(rowItem) + i}
-                      {...getHeaderCellProps(i)}
-                    >
-                      {rowItem}
+                    <TableCell key={cellKey} {...getHeaderCellProps(i)}>
+                      {cellName}
                     </TableCell>
                   );
                 })}
@@ -107,15 +118,22 @@ export function EditableTable<T extends object>({
                   const renderInput = () => {
                     if (column.input === 'select') {
                       return (
-                        <Select
-                          id={column.id}
-                          options={column.options || []}
-                          value={watch(column.id as unknown as Path<T>)}
-                          {...register(column.id as unknown as Path<T>, {
-                            required: column.required,
-                            valueAsNumber: isNumericValue,
-                          })}
-                          sx={column.styles}
+                        <Controller
+                          name={column.id as unknown as Path<T>}
+                          control={control}
+                          rules={{ required: column.required }}
+                          render={({ field }) => {
+                            return (
+                              <Select
+                                {...field}
+                                id={column.id}
+                                options={column.options || []}
+                                sx={column.styles}
+                                value={field.value}
+                                onChange={field.onChange}
+                              />
+                            );
+                          }}
                         />
                       );
                     }

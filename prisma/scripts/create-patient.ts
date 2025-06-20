@@ -48,7 +48,22 @@ rl.question(
             })),
           },
           illness: { create: dto.illness },
-          familyHistory: { create: dto.familyHistory },
+          familyHistory: {
+            create: dto.familyHistory.map((entry) => ({
+              case: entry.case,
+              category: entry.category,
+              notes: entry.notes,
+              relative: {
+                create: {
+                  id: entry.relative.id,
+                  name: entry.relative.name,
+                  value: entry.relative.value,
+                  order: entry.relative.order,
+                },
+              },
+            })),
+          },
+
           operations: { create: dto.operations },
           badHabits: dto.badHabits,
         },

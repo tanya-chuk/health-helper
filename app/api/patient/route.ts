@@ -18,7 +18,11 @@ export async function GET(request: NextRequest) {
       include: {
         bloodPressure: true,
         allergies: true,
-        familyHistory: true,
+        familyHistory: {
+          include: {
+            relative: true,
+          },
+        },
         illness: true,
         operations: true,
         medications: {

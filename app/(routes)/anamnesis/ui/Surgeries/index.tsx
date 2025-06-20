@@ -5,13 +5,14 @@ import { Patient } from '@/app/types';
 import { EditableTable, TableColumn } from '@/app/components/EditableTable';
 import { CURRENT_YEAR, YEARS_LIST } from '@/app/constants';
 import { useStores } from '@/app/stores/StoreContext';
+import { SelectOption } from '@/app/components/Select';
 
 interface Props {
   patientId: Patient['id'];
 }
 
 interface FormProps {
-  year: number;
+  year: SelectOption;
   case: string;
 }
 
@@ -22,7 +23,11 @@ export const Surgeries = observer(({ patientId }: Props) => {
   } = useStores();
 
   const defaultValues = {
-    year: CURRENT_YEAR,
+    year: {
+      id: String(CURRENT_YEAR),
+      name: CURRENT_YEAR,
+      value: CURRENT_YEAR,
+    },
     case: '',
   };
 
@@ -51,6 +56,7 @@ export const Surgeries = observer(({ patientId }: Props) => {
   const handleSubmit = async (data: FormProps) => {
     await addSurgery({
       ...data,
+      year: +data.year.value,
       patientId,
     });
   };

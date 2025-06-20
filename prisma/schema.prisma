@@ -15,7 +15,7 @@ model Illness {
   year      Int
   notes     String?
   patientId String
-  Patient   Patient? @relation(fields: [patientId], references: [id])
+  patient   Patient? @relation(fields: [patientId], references: [id])
 }
 
 model MedicationIntakePeriod {
@@ -31,7 +31,7 @@ model Medication {
   name      String
   cause     String
   patientId String
-  Patient   Patient?                 @relation(fields: [patientId], references: [id])
+  patient   Patient?                 @relation(fields: [patientId], references: [id])
   periods   MedicationIntakePeriod[]
 }
 
@@ -40,17 +40,18 @@ model Operation {
   year      Int
   case      String
   patientId String
-  Patient   Patient @relation(fields: [patientId], references: [id])
+  patient   Patient @relation(fields: [patientId], references: [id])
 }
 
 model FamilyHistoryRecord {
   id        String   @id @default(cuid())
-  person    String
   case      String
   category  String
   notes     String
   patientId String
-  Patient   Patient? @relation(fields: [patientId], references: [id])
+  patient   Patient? @relation(fields: [patientId], references: [id])
+  relativeId String
+  relative   Relative? @relation(fields: [relativeId], references: [id])
 }
 
 model Allergy {
@@ -58,7 +59,7 @@ model Allergy {
   household String[]
   drug      String[]
   patientId String
-  Patient   Patient? @relation(fields: [patientId], references: [id])
+  patient   Patient? @relation(fields: [patientId], references: [id])
 }
 
 model BloodPressure {
@@ -66,7 +67,7 @@ model BloodPressure {
   systolic  Int
   diastolic Int
   patientId String  @unique
-  Patient   Patient @relation(fields: [patientId], references: [id])
+  patient   Patient @relation(fields: [patientId], references: [id])
 }
 
 model Patient {
@@ -85,4 +86,12 @@ model Patient {
   bloodPressure BloodPressure?
   email         String
   password      String
+}
+
+model Relative {
+  id                  String                @id @default(cuid())
+  value               String                @unique
+  name                String
+  order               Int?
+  FamilyHistoryRecord FamilyHistoryRecord[]
 }

@@ -1,12 +1,13 @@
 'use client';
 import React from 'react';
+import { observer } from 'mobx-react-lite';
 import { differenceInYears } from 'date-fns';
 import { pluralizeAge } from '@/app/utils';
 import { CURRENT_YEAR, YEARS_LIST } from '@/app/constants';
 import { Patient } from '@/app/types';
-import { observer } from 'mobx-react-lite';
 import { useStores } from '@/app/stores/StoreContext';
 import { EditableTable, TableColumn } from '@/app/components/EditableTable';
+import { SelectOption } from '@/app/components/Select';
 
 interface Props {
   patient: Patient;
@@ -14,7 +15,7 @@ interface Props {
 
 interface FormProps {
   case: string;
-  year: number;
+  year: SelectOption;
   age: number;
 }
 
@@ -27,7 +28,11 @@ export const ChronicIllness = observer(
 
     const defaultValues = {
       case: '',
-      year: CURRENT_YEAR,
+      year: {
+        id: String(CURRENT_YEAR),
+        name: CURRENT_YEAR,
+        value: CURRENT_YEAR,
+      },
       age: differenceInYears(new Date(), new Date(birthDate)),
     };
 
@@ -67,6 +72,7 @@ export const ChronicIllness = observer(
     const handleSubmit = async (data: FormProps) => {
       await addIllness({
         ...data,
+        year: +data.year.value,
         patientId: id,
       });
     };

@@ -28,7 +28,7 @@ export type MedicationDTO = {
 };
 
 export type FamilyHistoryRecordDTO = {
-  person: string;
+  relative: RelativeDTO;
   case: string;
   category: string;
   notes: string;
@@ -42,6 +42,13 @@ export type AllergiesDTO = {
 export type BadHabitsDTO = {
   alcohol: boolean;
   smoking: boolean;
+};
+
+export type RelativeDTO = {
+  id: string;
+  name: string;
+  value: string;
+  order?: number;
 };
 
 export type PatientDTO = {

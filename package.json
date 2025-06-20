@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "prisma": {
-    "seed": "ts-node ./prisma/scripts/seed.js"
+    "seed": "ts-node ./prisma/seed.js"
   },
   "scripts": {
     "dev": "next dev --turbopack",
@@ -24,6 +24,7 @@
     "@mui/material": "^7.0.0",
     "@neondatabase/serverless": "^1.0.0",
     "@prisma/client": "^6.6.0",
+    "@tanstack/react-query": "^5.80.10",
     "axios": "^1.8.4",
     "bcrypt": "^5.1.1",
     "bcryptjs": "^3.0.2",

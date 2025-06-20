@@ -30,11 +30,11 @@ export const medicationDTOSchema = z.object({
   periods: z.array(medicationIntakePeriodDTOSchema),
 });
 
-export const familyHistoryRecordDTOSchema = z.object({
-  person: z.string(),
-  case: z.string(),
-  category: z.string(),
-  notes: z.string(),
+export const relativeDTOSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  value: z.string(),
+  order: z.number().optional(),
 });
 
 export const allergiesDTOSchema = z.object({
@@ -45,6 +45,13 @@ export const allergiesDTOSchema = z.object({
 export const badHabitsDTOSchema = z.object({
   alcohol: z.boolean(),
   smoking: z.boolean(),
+});
+
+export const familyHistoryRecordDTOSchema = z.object({
+  relative: relativeDTOSchema,
+  case: z.string(),
+  category: z.string(),
+  notes: z.string(),
 });
 
 export const patientDTOSchema = z.object({

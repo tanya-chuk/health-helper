@@ -56,13 +56,16 @@ export interface Medication {
   periods: Array<MedicationIntakePeriod>;
 }
 
-export interface FamilyHistoryRecord {
-  id: string;
-  person: string;
+export interface FamilyHistoryRecordBase {
+  patientId: string;
   case: string;
-  category: string;
-  notes: string;
+  relative: Relative;
+  category?: string;
+  notes?: string;
 }
+
+export type FamilyHistoryRecord = FamilyHistoryRecordBase & { id: string };
+export type NewFamilyHistoryRecord = FamilyHistoryRecordBase;
 
 export interface Allergies {
   household: string[];
@@ -90,4 +93,11 @@ export interface Patient {
   badHabits: BadHabits;
   email: string; // TO-DO перенести в user
   password: string; // TO-DO перенести в user
+}
+
+export interface Relative {
+  id: string;
+  value: string;
+  name: string;
+  order?: number;
 }

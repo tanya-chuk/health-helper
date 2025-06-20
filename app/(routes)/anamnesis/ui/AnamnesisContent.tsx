@@ -32,13 +32,13 @@ const renderLeftColumn = (patient: Patient): Array<ContentItem> => {
     },
     {
       title: 'Хронические заболевания',
-      content: <ChronicIllness list={patient.illness} />,
+      content: <ChronicIllness patient={patient} />,
       isCollapsable: true,
       expanded: true,
     },
     {
       title: 'Перенесенные операции',
-      content: <Surgeries list={patient.operations} />,
+      content: <Surgeries patientId={patient.id} />,
       isCollapsable: true,
     },
     {
@@ -53,8 +53,9 @@ const renderRightColumn = (patient: Patient): Array<ContentItem> => {
   return [
     {
       title: 'Заболевания в семье',
-      content: <FamilyHistory list={patient.familyHistory} />,
+      content: <FamilyHistory patientId={patient.id} />,
       isCollapsable: true,
+      expanded: true,
     },
     {
       title: 'Аллергия',
@@ -70,7 +71,7 @@ const renderRightColumn = (patient: Patient): Array<ContentItem> => {
   ];
 };
 
-export const Anamnesis = observer(() => {
+export const AnamnesisContent = observer(() => {
   const {
     patientStore: { patient },
   } = useStores();
@@ -92,7 +93,7 @@ export const Anamnesis = observer(() => {
                   content={item.content}
                 />
               ) : (
-                item.content
+                <div key={item.title}>{item.content}</div>
               );
             })}
           </StyledBox>
