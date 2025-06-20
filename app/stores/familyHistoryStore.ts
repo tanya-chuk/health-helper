@@ -19,10 +19,7 @@ class FamilyHistoryStore {
   };
 
   addEntry = async (entry: NewFamilyHistoryRecord) => {
-    const list: AxiosResponse = await axios.post(
-      `/api/familyHistoryRecord`,
-      entry,
-    );
+    const list: AxiosResponse = await axios.post(`/api/familyHistory`, entry);
 
     runInAction(() => {
       this.list.push(list.data);
