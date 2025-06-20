@@ -139,15 +139,25 @@ export function EditableTable<T extends object>({
                     }
 
                     return (
-                      <TextField
-                        id={column.id}
-                        type={column.type}
-                        variant="standard"
-                        sx={column.styles}
-                        {...register(column.id as unknown as Path<T>, {
-                          required: column.required,
-                          valueAsNumber: isNumericValue,
-                        })}
+                      <Controller
+                        name={column.id as unknown as Path<T>}
+                        control={control}
+                        rules={{ required: column.required }}
+                        render={({ field }) => {
+                          return (
+                            <TextField
+                              {...field}
+                              id={column.id}
+                              type={column.type}
+                              variant="standard"
+                              sx={column.styles}
+                              {...register(column.id as unknown as Path<T>, {
+                                required: column.required,
+                                valueAsNumber: isNumericValue,
+                              })}
+                            />
+                          );
+                        }}
                       />
                     );
                   };

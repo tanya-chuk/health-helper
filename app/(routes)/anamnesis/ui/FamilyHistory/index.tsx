@@ -22,11 +22,7 @@ export const FamilyHistory = observer(({ patientId }: Props) => {
 
   const defaultValues = {
     case: '',
-    relative: {
-      id: '',
-      name: '',
-      value: '',
-    },
+    relative: undefined,
   };
 
   const columns: Array<TableColumn<keyof FormProps>> = [
