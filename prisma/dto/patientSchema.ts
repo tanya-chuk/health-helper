@@ -24,7 +24,7 @@ export type MedicationIntakePeriodDTO = {
 export type MedicationDTO = {
   name: string;
   cause: string;
-  periods: MedicationIntakePeriodDTO[];
+  period: MedicationIntakePeriodDTO;
 };
 
 export type FamilyHistoryRecordDTO = {

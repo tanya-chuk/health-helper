@@ -43,7 +43,7 @@ const renderLeftColumn = (patient: Patient): Array<ContentItem> => {
     },
     {
       title: 'Прием препаратов',
-      content: <Medications list={patient.medications} />,
+      content: <Medications patientId={patient.id} />,
       isCollapsable: true,
     },
   ];

@@ -27,7 +27,7 @@ export const medicationIntakePeriodDTOSchema = z.object({
 export const medicationDTOSchema = z.object({
   name: z.string(),
   cause: z.string(),
-  periods: z.array(medicationIntakePeriodDTOSchema),
+  period: medicationIntakePeriodDTOSchema,
 });
 
 export const relativeDTOSchema = z.object({

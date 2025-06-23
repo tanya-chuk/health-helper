@@ -39,11 +39,11 @@ rl.question(
             create: dto.medications.map((m) => ({
               name: m.name,
               cause: m.cause,
-              periods: {
-                create: m.periods.map((period) => ({
-                  start: new Date(period.start),
-                  end: period.end ? new Date(period.end) : null,
-                })),
+              period: {
+                create: {
+                  start: new Date(m.period.start),
+                  end: m.period.end ? new Date(m.period.end) : null,
+                },
               },
             })),
           },

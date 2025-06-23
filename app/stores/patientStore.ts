@@ -4,6 +4,7 @@ import { Patient } from '@/app/types';
 import { illnessStore } from './illnessStore';
 import { surgeriesStore } from './surgeriesStore';
 import { familyHistoryStore } from './familyHistoryStore';
+import { medicationStore } from './medicationStore';
 
 class PatientStore {
   patient: Patient | null = null;
@@ -32,6 +33,7 @@ class PatientStore {
         illnessStore.initStore(data.illness);
         surgeriesStore.initStore(data.surgeries);
         familyHistoryStore.initStore(data.familyHistory);
+        medicationStore.initStore(data.medications);
       });
     } catch (err: unknown) {
       this.loading = false;

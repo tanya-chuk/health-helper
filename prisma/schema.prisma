@@ -22,8 +22,8 @@ model MedicationIntakePeriod {
   id           String      @id @default(cuid())
   start        DateTime
   end          DateTime?
-  medicationId String
-  Medication   Medication? @relation(fields: [medicationId], references: [id])
+  medicationId String   @unique
+  medication   Medication @relation(fields: [medicationId], references: [id])
 }
 
 model Medication {
@@ -32,7 +32,7 @@ model Medication {
   cause     String
   patientId String
   patient   Patient?                 @relation(fields: [patientId], references: [id])
-  periods   MedicationIntakePeriod[]
+  period    MedicationIntakePeriod?
 }
 
 model Surgery {

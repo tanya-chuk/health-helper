@@ -42,18 +42,28 @@ export interface SurgeryBase {
 export type Surgery = SurgeryBase & { id: string };
 export type NewSurgery = SurgeryBase;
 
-export interface MedicationIntakePeriod {
-  id: string;
+export interface MedicationIntakePeriodBase {
   start: string;
   end?: string;
 }
 
-export interface Medication {
+export interface MedicationIntakePeriod extends MedicationIntakePeriodBase {
   id: string;
+}
+
+export interface MedicationBase {
+  patientId: string;
   name: string;
   cause: string;
-  periods: Array<MedicationIntakePeriod>;
+  period: MedicationIntakePeriodBase;
 }
+
+export type Medication = Omit<MedicationBase, 'period'> & {
+  id: string;
+  period: MedicationIntakePeriod;
+};
+
+export type NewMedication = MedicationBase;
 
 export interface FamilyHistoryRecordBase {
   patientId: string;

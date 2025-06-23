@@ -1,6 +1,8 @@
 'use client';
 import React, { useState } from 'react';
 import { useForm, SubmitHandler, Path, Controller } from 'react-hook-form';
+import { format } from 'date-fns';
+import { Plus } from '@/public/icons';
 import {
   Box,
   Table,
@@ -13,8 +15,8 @@ import {
   TableCellProps,
 } from '@mui/material';
 import { Select } from '@/app/components/Select';
-import { Plus } from '@/public/icons';
-import { TableProps as Props, isSelectOption } from './types';
+import { RangeDatePicker } from '@/app/components/RangeDatePicker';
+import { TableProps as Props, isSelectCell, isDateCell } from './types';
 import { StyledBox, StyledTableRow, StyledButton } from './styled';
 
 export function EditableTable<T extends object>({
@@ -98,42 +100,73 @@ export function EditableTable<T extends object>({
             {rows.map((row, i) => (
               <StyledTableRow key={String(row) + i}>
                 {row.map((cell) => {
-                  const isSelectCell = isSelectOption(cell);
-                  const cellKey = isSelectCell ? cell.id : String(cell) + i;
-                  const cellName = isSelectCell ? cell.name : cell;
+                  if (isDateCell(cell)) {
+                    return (
+                      <TableCell
+                        key={cell.id}
+                        sx={{ whiteSpace: 'nowrap' }}
+                        {...getHeaderCellProps(i)}
+                      >
+                        {format(new Date(cell.start), 'MM.yyyy')} –&nbsp;
+                        {cell.end
+                          ? format(new Date(cell.end), 'MM.yyyy')
+                          : 'н.в.'}
+                      </TableCell>
+                    );
+                  }
+
+                  if (isSelectCell(cell)) {
+                    return (
+                      <TableCell key={cell.id} {...getHeaderCellProps(i)}>
+                        {cell.name}
+                      </TableCell>
+                    );
+                  }
 
                   return (
-                    <TableCell key={cellKey} {...getHeaderCellProps(i)}>
-                      {cellName}
+                    <TableCell
+                      key={String(cell) + i}
+                      {...getHeaderCellProps(i)}
+                    >
+                      {cell}
                     </TableCell>
                   );
                 })}
               </StyledTableRow>
             ))}
             {isEditing && (
-              <StyledTableRow>
+              <StyledTableRow className="editRow">
                 {columns.map((column, i) => {
                   const isNumericValue = Boolean(column.type === 'number');
 
                   const renderInput = () => {
+                    if (column.input === 'date') {
+                      return (
+                        <Controller
+                          name={column.id as unknown as Path<T>}
+                          control={control}
+                          rules={{ required: column.required }}
+                          render={({ field }) => <RangeDatePicker {...field} />}
+                        />
+                      );
+                    }
+
                     if (column.input === 'select') {
                       return (
                         <Controller
                           name={column.id as unknown as Path<T>}
                           control={control}
                           rules={{ required: column.required }}
-                          render={({ field }) => {
-                            return (
-                              <Select
-                                {...field}
-                                id={column.id}
-                                options={column.options || []}
-                                sx={column.styles}
-                                value={field.value}
-                                onChange={field.onChange}
-                              />
-                            );
-                          }}
+                          render={({ field }) => (
+                            <Select
+                              {...field}
+                              id={column.id}
+                              options={column.options || []}
+                              sx={column.styles}
+                              value={field.value}
+                              onChange={field.onChange}
+                            />
+                          )}
                         />
                       );
                     }
@@ -143,21 +176,19 @@ export function EditableTable<T extends object>({
                         name={column.id as unknown as Path<T>}
                         control={control}
                         rules={{ required: column.required }}
-                        render={({ field }) => {
-                          return (
-                            <TextField
-                              {...field}
-                              id={column.id}
-                              type={column.type}
-                              variant="standard"
-                              sx={column.styles}
-                              {...register(column.id as unknown as Path<T>, {
-                                required: column.required,
-                                valueAsNumber: isNumericValue,
-                              })}
-                            />
-                          );
-                        }}
+                        render={({ field }) => (
+                          <TextField
+                            {...field}
+                            id={column.id}
+                            type={column.type}
+                            variant="standard"
+                            sx={column.styles}
+                            {...register(column.id as unknown as Path<T>, {
+                              required: column.required,
+                              valueAsNumber: isNumericValue,
+                            })}
+                          />
+                        )}
                       />
                     );
                   };
