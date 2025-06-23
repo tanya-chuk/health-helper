@@ -39,7 +39,7 @@ export const Medications = observer(({ patientId }: Props) => {
     {
       id: 'period',
       name: 'Период',
-      input: 'date',
+      input: 'date_range',
       type: 'string',
       required: true,
     },

@@ -140,7 +140,7 @@ export function EditableTable<T extends object>({
                   const isNumericValue = Boolean(column.type === 'number');
 
                   const renderInput = () => {
-                    if (column.input === 'date') {
+                    if (column.input === 'date_range') {
                       return (
                         <Controller
                           name={column.id as unknown as Path<T>}

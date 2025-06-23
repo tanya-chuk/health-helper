@@ -5,7 +5,8 @@ import { SelectOption } from '../Select';
 
 export type InputType =
   | Extract<HTMLInputTypeAttribute, 'text' | 'number' | 'date'>
-  | 'select';
+  | 'select'
+  | 'date_range';
 
 export type InputValue = 'string' | 'number';
 
