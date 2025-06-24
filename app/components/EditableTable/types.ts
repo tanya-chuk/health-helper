@@ -4,7 +4,7 @@ import { DefaultValues } from 'react-hook-form';
 import { SelectOption } from '../Select';
 
 export type InputType =
-  | Extract<HTMLInputTypeAttribute, 'text' | 'number' | 'date'>
+  | Extract<HTMLInputTypeAttribute, 'text' | 'number'>
   | 'select'
   | 'date_range';
 

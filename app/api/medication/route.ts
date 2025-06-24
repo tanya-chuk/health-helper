@@ -17,7 +17,7 @@ export async function POST(request: NextRequest) {
         period: {
           create: {
             start: data.period.start,
-            end: data.period.end,
+            end: data.period.end || null,
           },
         },
       },
