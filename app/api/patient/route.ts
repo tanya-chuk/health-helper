@@ -18,12 +18,16 @@ export async function GET(request: NextRequest) {
       include: {
         bloodPressure: true,
         allergies: true,
-        familyHistory: true,
+        familyHistory: {
+          include: {
+            relative: true,
+          },
+        },
         illness: true,
-        operations: true,
+        surgeries: true,
         medications: {
           include: {
-            periods: true,
+            period: true,
           },
         },
       },
@@ -44,6 +48,50 @@ export async function GET(request: NextRequest) {
     ) {
       return new NextResponse('Пациент не найден', { status: 404 });
     }
+    return new NextResponse('Ошибка сервера', { status: 500 });
+  }
+}
+
+export async function PATCH(request: NextRequest) {
+  const data = await request.json();
+
+  try {
+    const patient = await prisma.patient.update({
+      where: { id: data.id },
+      select: {
+        birthDate: true,
+        height: true,
+        weight: true,
+        bloodPressure: {
+          select: {
+            systolic: true,
+            diastolic: true,
+          },
+        },
+      },
+      data: {
+        birthDate: data.birthDate,
+        height: data.height,
+        weight: data.weight,
+        bloodPressure: {
+          update: {
+            systolic: data.bloodPressure.systolic,
+            diastolic: data.bloodPressure.diastolic,
+          },
+        },
+      },
+    });
+
+    const patientWithAge = {
+      ...patient,
+      age: patient.birthDate
+        ? differenceInYears(new Date(), patient.birthDate)
+        : 0,
+    };
+
+    return NextResponse.json(patientWithAge);
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  } catch (err: unknown) {
     return new NextResponse('Ошибка сервера', { status: 500 });
   }
 }

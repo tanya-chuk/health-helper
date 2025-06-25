@@ -1,63 +1,80 @@
 'use client';
 import React from 'react';
-import {
-  Box,
-  Table,
-  TableContainer,
-  TableHead,
-  TableRow,
-  TableCell,
-  TableBody,
-} from '@mui/material';
-import { Medication } from '@/app/types';
-import { StyledBox, StyledTableRow } from './styled';
+import { observer } from 'mobx-react-lite';
+import { Patient } from '@/app/types';
+import { EditableTable, TableColumn } from '@/app/components/EditableTable';
+import { PICKER_PARTS } from '@/app/components/RangeDatePicker';
+import { useStores } from '@/app/stores/StoreContext';
 
 interface Props {
-  list: Array<Medication>;
+  patientId: Patient['id'];
 }
 
-const formatDate = (timestamp: string) => {
-  const date = new Date(timestamp);
-  const month = date.getMonth() + 1;
-  const year = date.getFullYear();
+interface FormProps {
+  name: string;
+  period: Array<null | string>;
+  cause: string;
+}
 
-  return `${month}.${year}`;
-};
+export const Medications = observer(({ patientId }: Props) => {
+  const {
+    medicationStore: { list, addMedication },
+    snackbarStore: { showSnackbar },
+  } = useStores();
 
-export const Medications = ({ list }: Props) => {
-  if (!list.length) {
-    return <Box>Нет данных</Box>;
-  }
+  const defaultValues = {
+    name: '',
+    cause: '',
+    period: [null, null],
+  };
+
+  const columns: Array<TableColumn<keyof FormProps>> = [
+    {
+      id: 'name',
+      name: 'Название',
+      input: 'text',
+      type: 'string',
+      required: true,
+    },
+    {
+      id: 'period',
+      name: 'Период',
+      input: 'date_range',
+      type: 'string',
+      required: true,
+    },
+    {
+      id: 'cause',
+      name: 'Повод приема',
+      input: 'text',
+      type: 'string',
+      required: true,
+    },
+  ];
+
+  const rows = list.map((item) =>
+    Object.values(columns).map(({ id }) => item[id]),
+  );
+
+  const handleSubmit = async (data: FormProps) =>
+    await addMedication({
+      ...data,
+      patientId,
+      period: {
+        start: data.period[PICKER_PARTS.start] || '',
+        end: data.period[PICKER_PARTS.end] || '',
+      },
+    });
+
+  const handleError = () => showSnackbar('networkError');
 
   return (
-    <TableContainer component={Box}>
-      <Table>
-        <TableHead>
-          <TableRow>
-            <TableCell>Название</TableCell>
-            <TableCell>Период</TableCell>
-            <TableCell>Повод приема</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {list.map((item) => (
-            <StyledTableRow key={item.id}>
-              <TableCell component="th" scope="row">
-                {item.name}
-              </TableCell>
-              <TableCell>
-                {item.periods.map((period) => (
-                  <StyledBox key={period.id} className="period">
-                    {formatDate(period.start)} –&nbsp;
-                    {period.end ? formatDate(period.end) : 'н.в.'}
-                  </StyledBox>
-                ))}
-              </TableCell>
-              <TableCell>{item.cause}</TableCell>
-            </StyledTableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+    <EditableTable<FormProps>
+      rows={rows}
+      columns={columns}
+      submitData={handleSubmit}
+      onError={handleError}
+      defaultValues={defaultValues}
+    />
   );
-};
+});

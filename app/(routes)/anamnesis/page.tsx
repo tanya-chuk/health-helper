@@ -5,23 +5,25 @@ import { useSession } from 'next-auth/react';
 import { Typography } from '@mui/material';
 import { useStores } from '@/app/stores/StoreContext';
 import { Loader } from '@/app/components/Loader';
-import { Anamnesis } from './ui';
+import { AnamnesisContent } from './ui';
 
 const pageStateConfig: { [key: string]: ReactElement | null } = {
-  content: <Anamnesis />,
+  content: <AnamnesisContent />,
   loading: <Loader />,
   error: <Typography>Ошибка загрузки</Typography>,
 };
 
 const AnamnesisPage = observer(() => {
   const session = useSession();
-  const { patientStore } = useStores();
-  const { pageState, patient } = patientStore;
+  const { patientStore, familyHistoryStore } = useStores();
+  const { pageState, patient, fetchPatient } = patientStore;
+  const { fetchRelativesTypes } = familyHistoryStore;
   const userId = session.data?.user?.id;
 
   useEffect(() => {
     if (userId && !patient) {
-      patientStore.fetchPatient(userId);
+      fetchPatient(userId);
+      fetchRelativesTypes();
     }
   }, [userId, patient]);
 

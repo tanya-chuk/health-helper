@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "prisma": {
-    "seed": "ts-node ./prisma/scripts/seed.js"
+    "seed": "ts-node ./prisma/seed.js"
   },
   "scripts": {
     "dev": "next dev --turbopack",
@@ -14,7 +14,8 @@
     "seed": "prisma db seed",
     "postinstall": "prisma generate",
     "generate-zod": "npx ts-to-zod prisma/dto/*.ts prisma/dto/zod/index.ts",
-    "create-patient": "tsx prisma/scripts/create-patient.ts"
+    "create-patient": "tsx prisma/scripts/create-patient.ts",
+    "svgr": "npx @svgr/cli --out-dir public/icons  --ignore-existing public/icons"
   },
   "dependencies": {
     "@base-ui-components/react": "^1.0.0-alpha.7",
@@ -22,6 +23,7 @@
     "@emotion/styled": "^11.14.0",
     "@heroicons/react": "^2.2.0",
     "@mui/material": "^7.0.0",
+    "@mui/x-date-pickers": "^8.5.3",
     "@neondatabase/serverless": "^1.0.0",
     "@prisma/client": "^6.6.0",
     "axios": "^1.8.4",

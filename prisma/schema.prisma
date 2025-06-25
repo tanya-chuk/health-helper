@@ -15,15 +15,15 @@ model Illness {
   year      Int
   notes     String?
   patientId String
-  Patient   Patient? @relation(fields: [patientId], references: [id])
+  patient   Patient? @relation(fields: [patientId], references: [id])
 }
 
 model MedicationIntakePeriod {
   id           String      @id @default(cuid())
   start        DateTime
   end          DateTime?
-  medicationId String
-  Medication   Medication? @relation(fields: [medicationId], references: [id])
+  medicationId String   @unique
+  medication   Medication @relation(fields: [medicationId], references: [id])
 }
 
 model Medication {
@@ -31,26 +31,27 @@ model Medication {
   name      String
   cause     String
   patientId String
-  Patient   Patient?                 @relation(fields: [patientId], references: [id])
-  periods   MedicationIntakePeriod[]
+  patient   Patient?                 @relation(fields: [patientId], references: [id])
+  period    MedicationIntakePeriod?
 }
 
-model Operation {
+model Surgery {
   id        String  @id @default(cuid())
   year      Int
   case      String
   patientId String
-  Patient   Patient @relation(fields: [patientId], references: [id])
+  patient   Patient @relation(fields: [patientId], references: [id])
 }
 
 model FamilyHistoryRecord {
   id        String   @id @default(cuid())
-  person    String
   case      String
   category  String
   notes     String
   patientId String
-  Patient   Patient? @relation(fields: [patientId], references: [id])
+  patient   Patient? @relation(fields: [patientId], references: [id])
+  relativeId String
+  relative   Relative? @relation(fields: [relativeId], references: [id])
 }
 
 model Allergy {
@@ -58,7 +59,7 @@ model Allergy {
   household String[]
   drug      String[]
   patientId String
-  Patient   Patient? @relation(fields: [patientId], references: [id])
+  patient   Patient? @relation(fields: [patientId], references: [id])
 }
 
 model BloodPressure {
@@ -66,7 +67,7 @@ model BloodPressure {
   systolic  Int
   diastolic Int
   patientId String  @unique
-  Patient   Patient @relation(fields: [patientId], references: [id])
+  patient   Patient @relation(fields: [patientId], references: [id])
 }
 
 model Patient {
@@ -80,9 +81,17 @@ model Patient {
   familyHistory FamilyHistoryRecord[]
   illness       Illness[]
   medications   Medication[]
-  operations    Operation[]
+  surgeries    Surgery[]
   badHabits     Json?
   bloodPressure BloodPressure?
   email         String
   password      String
+}
+
+model Relative {
+  id                  String                @id @default(cuid())
+  value               String                @unique
+  name                String
+  order               Int?
+  FamilyHistoryRecord FamilyHistoryRecord[]
 }

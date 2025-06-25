@@ -9,8 +9,8 @@ const renderAllergiesList = (title: string, list: Array<string>) => {
       <Typography>{title}:</Typography>
       {list?.length ? (
         <StyledStack className="list" direction="row" spacing={0.5} useFlexGap>
-          {list.map((allergy) => (
-            <StyledChip key={allergy} label={allergy} />
+          {list.map((allergy, i) => (
+            <StyledChip key={allergy + i} label={allergy} />
           ))}
         </StyledStack>
       ) : (

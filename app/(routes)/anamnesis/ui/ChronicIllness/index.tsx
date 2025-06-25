@@ -1,49 +1,92 @@
 'use client';
 import React from 'react';
-import {
-  Box,
-  Table,
-  TableContainer,
-  TableHead,
-  TableRow,
-  TableCell,
-  TableBody,
-} from '@mui/material';
-import { Illness } from '@/app/types';
+import { observer } from 'mobx-react-lite';
+import { differenceInYears } from 'date-fns';
 import { pluralizeAge } from '@/app/utils';
-import { StyledTableRow } from './styled';
+import { CURRENT_YEAR, YEARS_LIST } from '@/app/constants';
+import { Patient } from '@/app/types';
+import { useStores } from '@/app/stores/StoreContext';
+import { EditableTable, TableColumn } from '@/app/components/EditableTable';
+import { SelectOption } from '@/app/components/Select';
 
 interface Props {
-  list: Array<Illness>;
+  patient: Patient;
 }
 
-export const ChronicIllness = ({ list }: Props) => {
-  if (!list.length) {
-    return <Box>Нет данных</Box>;
-  }
+interface FormProps {
+  case: string;
+  year: SelectOption;
+  age: number;
+}
 
-  return (
-    <TableContainer component={Box}>
-      <Table>
-        <TableHead>
-          <TableRow>
-            <TableCell>Случай</TableCell>
-            <TableCell>Год дебюта</TableCell>
-            <TableCell>Возраст</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {list.map((item) => (
-            <StyledTableRow key={item.id}>
-              <TableCell component="th" scope="row">
-                {item.case}
-              </TableCell>
-              <TableCell>{item.year}</TableCell>
-              <TableCell>{pluralizeAge(item.age)}</TableCell>
-            </StyledTableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
-  );
-};
+export const ChronicIllness = observer(
+  ({ patient: { id, birthDate } }: Props) => {
+    const {
+      illnessStore: { list, addIllness },
+      snackbarStore: { showSnackbar },
+    } = useStores();
+
+    const defaultValues = {
+      case: '',
+      year: {
+        id: String(CURRENT_YEAR),
+        name: CURRENT_YEAR,
+        value: CURRENT_YEAR,
+      },
+      age: differenceInYears(new Date(), new Date(birthDate)),
+    };
+
+    const columns: Array<TableColumn<keyof FormProps>> = [
+      {
+        id: 'case',
+        name: 'Случай',
+        input: 'text',
+        type: 'string',
+        required: true,
+        styles: { width: 'auto' },
+      },
+      {
+        id: 'year',
+        name: 'Год дебюта',
+        input: 'select',
+        type: 'number',
+        options: YEARS_LIST,
+        required: true,
+      },
+      {
+        id: 'age',
+        name: 'Возраст',
+        input: 'text',
+        type: 'number',
+        required: true,
+        styles: { width: 70 },
+      },
+    ];
+
+    const rows = list.map((item) =>
+      Object.values(columns).map(({ id }) =>
+        String(id === 'age' ? pluralizeAge(item[id]) : item[id]),
+      ),
+    );
+
+    const handleSubmit = async (data: FormProps) => {
+      await addIllness({
+        ...data,
+        year: +data.year.value,
+        patientId: id,
+      });
+    };
+
+    const handleError = () => showSnackbar('networkError');
+
+    return (
+      <EditableTable<FormProps>
+        columns={columns}
+        rows={rows}
+        defaultValues={defaultValues}
+        submitData={handleSubmit}
+        onError={handleError}
+      />
+    );
+  },
+);

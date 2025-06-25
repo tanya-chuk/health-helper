@@ -1,44 +1,77 @@
 'use client';
 import React from 'react';
-import {
-  Box,
-  Table,
-  TableContainer,
-  TableHead,
-  TableRow,
-  TableCell,
-  TableBody,
-} from '@mui/material';
-import { Operation } from '@/app/types';
-import { StyledTableRow } from './styled';
+import { observer } from 'mobx-react-lite';
+import { Patient } from '@/app/types';
+import { EditableTable, TableColumn } from '@/app/components/EditableTable';
+import { CURRENT_YEAR, YEARS_LIST } from '@/app/constants';
+import { useStores } from '@/app/stores/StoreContext';
+import { SelectOption } from '@/app/components/Select';
 
 interface Props {
-  list: Array<Operation>;
+  patientId: Patient['id'];
 }
 
-export const Surgeries = ({ list }: Props) => {
-  if (!list.length) {
-    return <Box>Нет данных</Box>;
-  }
+interface FormProps {
+  year: SelectOption;
+  case: string;
+}
+
+export const Surgeries = observer(({ patientId }: Props) => {
+  const {
+    surgeriesStore: { list, addSurgery },
+    snackbarStore: { showSnackbar },
+  } = useStores();
+
+  const defaultValues = {
+    year: {
+      id: String(CURRENT_YEAR),
+      name: CURRENT_YEAR,
+      value: CURRENT_YEAR,
+    },
+    case: '',
+  };
+
+  const columns: Array<TableColumn<keyof FormProps>> = [
+    {
+      id: 'year',
+      name: 'Год проведения',
+      input: 'select',
+      type: 'number',
+      options: YEARS_LIST,
+      required: true,
+      styles: { width: 100 },
+    },
+    {
+      id: 'case',
+      name: 'Операция',
+      input: 'text',
+      type: 'string',
+      required: true,
+      styles: { width: '100%' },
+    },
+  ];
+
+  const rows = list.map((item) =>
+    Object.values(columns).map(({ id }) => item[id]),
+  );
+
+  const handleSubmit = async (data: FormProps) => {
+    await addSurgery({
+      ...data,
+      year: +data.year.value,
+      patientId,
+    });
+  };
+
+  const handleError = () => showSnackbar('networkError');
 
   return (
-    <TableContainer component={Box}>
-      <Table>
-        <TableHead>
-          <TableRow>
-            <TableCell>Год проведения</TableCell>
-            <TableCell>Операция</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {list.map((item) => (
-            <StyledTableRow key={item.id}>
-              <TableCell>{item.year}</TableCell>
-              <TableCell>{item.case}</TableCell>
-            </StyledTableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+    <EditableTable<FormProps>
+      rows={rows}
+      columns={columns}
+      defaultValues={defaultValues}
+      submitData={handleSubmit}
+      onError={handleError}
+    />
   );
-};
+});

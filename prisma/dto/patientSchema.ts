@@ -11,7 +11,7 @@ export type IllnessDTO = {
   notes?: string;
 };
 
-export type OperationDTO = {
+export type SurgeryDTO = {
   year: number;
   case: string;
 };
@@ -24,11 +24,11 @@ export type MedicationIntakePeriodDTO = {
 export type MedicationDTO = {
   name: string;
   cause: string;
-  periods: MedicationIntakePeriodDTO[];
+  period: MedicationIntakePeriodDTO;
 };
 
 export type FamilyHistoryRecordDTO = {
-  person: string;
+  relative: RelativeDTO;
   case: string;
   category: string;
   notes: string;
@@ -44,14 +44,21 @@ export type BadHabitsDTO = {
   smoking: boolean;
 };
 
+export type RelativeDTO = {
+  id: string;
+  name: string;
+  value: string;
+  order?: number;
+};
+
 export type PatientDTO = {
   name: string;
-  birthDate: string;
+  birthDate: Date;
   height: number;
   weight: number;
   bloodPressure: BloodPressureDTO;
   illness: IllnessDTO[];
-  operations: OperationDTO[];
+  surgeries: SurgeryDTO[];
   medications: MedicationDTO[];
   familyHistory: FamilyHistoryRecordDTO[];
   allergies: AllergiesDTO;
