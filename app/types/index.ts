@@ -89,7 +89,7 @@ export interface BadHabits {
 export interface Patient {
   id: string;
   name: string;
-  birthDate: string;
+  birthDate: Date;
   age: number;
   height: number;
   weight: number;

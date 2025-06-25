@@ -45,6 +45,14 @@ class PatientStore {
     }
   };
 
+  updateBasicInfo = async (data: Partial<Patient>) => {
+    const patient = await axios.patch<Patient>(`/api/patient`, data);
+
+    runInAction(() => {
+      this.patient = { ...this.patient, ...patient.data };
+    });
+  };
+
   resetStore = () => {
     this.patient = null;
     this.loading = false;

@@ -53,7 +53,7 @@ export type RelativeDTO = {
 
 export type PatientDTO = {
   name: string;
-  birthDate: string;
+  birthDate: Date;
   height: number;
   weight: number;
   bloodPressure: BloodPressureDTO;

@@ -14,7 +14,8 @@
     "seed": "prisma db seed",
     "postinstall": "prisma generate",
     "generate-zod": "npx ts-to-zod prisma/dto/*.ts prisma/dto/zod/index.ts",
-    "create-patient": "tsx prisma/scripts/create-patient.ts"
+    "create-patient": "tsx prisma/scripts/create-patient.ts",
+    "svgr": "npx @svgr/cli --out-dir public/icons  --ignore-existing public/icons"
   },
   "dependencies": {
     "@base-ui-components/react": "^1.0.0-alpha.7",

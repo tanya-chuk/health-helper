@@ -56,7 +56,7 @@ export const familyHistoryRecordDTOSchema = z.object({
 
 export const patientDTOSchema = z.object({
   name: z.string(),
-  birthDate: z.string(),
+  birthDate: z.date(),
   height: z.number(),
   weight: z.number(),
   bloodPressure: bloodPressureDTOSchema,
