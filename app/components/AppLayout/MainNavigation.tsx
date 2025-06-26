@@ -2,30 +2,31 @@
 import React, { useEffect, useState } from 'react';
 import { clsx } from 'clsx';
 import { usePathname } from 'next/navigation';
+import { routes } from '@/app/(routes)/routes';
 import { Stack, Typography } from '@mui/material';
 import { StyledBox, StyledLink } from './styled';
 import { LogoutButton } from './LogoutButton';
 
 const paths = {
-  '/anamnesis': {
+  [routes.anamnesis]: {
     id: 'anamnesis',
     name: 'Анамнез',
-    href: '/anamnesis',
+    href: routes.anamnesis,
   },
-  '/past-visits': {
+  [routes.pastVisits]: {
     id: 'past-visits',
     name: 'Посещения',
-    href: '/past-visits',
+    href: routes.pastVisits,
   },
-  '/prescriptions': {
+  [routes.prescriptions]: {
     id: 'prescriptions',
     name: 'Назначения',
-    href: '/prescriptions',
+    href: routes.prescriptions,
   },
-  '/analyzes': {
+  [routes.analyzes]: {
     id: 'analyzes',
     name: 'Анализы',
-    href: '/analyzes',
+    href: routes.analyzes,
   },
 };
 

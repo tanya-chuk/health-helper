@@ -1,6 +1,6 @@
 import { getToken } from 'next-auth/jwt';
 import { auth } from '@/auth';
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 
 export default auth(async function middleware(req) {
   const token = await getToken({ req, secret: process.env.AUTH_SECRET });
@@ -12,6 +12,18 @@ export default auth(async function middleware(req) {
     }
   }
 });
+
+export function middleware(request: NextRequest) {
+  if (
+    request.nextUrl.pathname === request.nextUrl.pathname.toLocaleLowerCase()
+  ) {
+    return NextResponse.next();
+  }
+
+  return NextResponse.redirect(
+    `${request.nextUrl.origin}${request.nextUrl.pathname.toLocaleLowerCase()}${request.nextUrl.search}`,
+  );
+}
 
 export const config = {
   // https://nextjs.org/docs/app/building-your-application/routing/middleware#matcher
