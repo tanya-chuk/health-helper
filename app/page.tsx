@@ -1,5 +1,6 @@
-import React from 'react';
+import { redirect } from 'next/navigation';
+import { routes } from '@/app/(routes)/routes';
 
 export default function Home() {
-  return <div>content</div>;
+  redirect(routes.anamnesis);
 }

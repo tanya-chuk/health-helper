@@ -4,7 +4,7 @@ import { observer } from 'mobx-react-lite';
 import { useSession } from 'next-auth/react';
 import { Typography } from '@mui/material';
 import { useStores } from '@/app/stores/StoreContext';
-import { Loader } from '@/app/components/Loader';
+import { Loader } from '@/app/components';
 import { AnamnesisContent } from './ui';
 
 const pageStateConfig: { [key: string]: ReactElement | null } = {

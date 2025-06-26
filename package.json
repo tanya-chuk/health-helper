@@ -19,10 +19,12 @@
   },
   "dependencies": {
     "@base-ui-components/react": "^1.0.0-alpha.7",
+    "@emotion/cache": "^11.14.0",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
     "@heroicons/react": "^2.2.0",
     "@mui/material": "^7.0.0",
+    "@mui/material-nextjs": "^7.1.1",
     "@mui/x-date-pickers": "^8.5.3",
     "@neondatabase/serverless": "^1.0.0",
     "@prisma/client": "^6.6.0",

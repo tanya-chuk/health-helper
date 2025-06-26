@@ -1,13 +1,14 @@
 'use client';
 import React, { useActionState } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { Box, Button, TextField, Typography } from '@mui/material';
+import { routes } from '@/app/(routes)/routes';
 import { authenticate } from '@/app/lib/actions';
 import { AUTH_GATE_URL, AUTH_NEXT_URL } from '@/app/constants';
-import { useSearchParams } from 'next/navigation';
 
 export const LoginForm = () => {
   const searchParams = useSearchParams();
-  const callbackUrl = searchParams.get('callbackUrl') || '/anamnesis';
+  const callbackUrl = searchParams.get('callbackUrl') || routes.anamnesis;
   localStorage.setItem(AUTH_NEXT_URL, callbackUrl);
 
   const [errorMessage, formAction, isPending] = useActionState(

@@ -1,7 +1,7 @@
 'use client';
 import React from 'react';
 import { Path, Controller, Control } from 'react-hook-form';
-import { RangeDatePicker } from '@/app/components/RangeDatePicker';
+import { RangeDatePicker } from '@/app/components';
 import { TableColumn } from '../types';
 
 interface Props<T extends object> {

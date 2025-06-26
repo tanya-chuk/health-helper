@@ -1,3 +1,4 @@
+'use client';
 import React, { ChangeEvent } from 'react';
 import TextField, { TextFieldProps } from '@mui/material/TextField';
 import { MenuItem } from '@mui/material';

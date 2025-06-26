@@ -2,11 +2,7 @@
 import React, { ReactNode, useState } from 'react';
 import clsx from 'clsx';
 import { Collapse, IconButton, Typography } from '@mui/material';
-import {
-  StyledCard,
-  StyledCardContent,
-  StyledCardHeader,
-} from '../../(routes)/anamnesis/ui/styled';
+import { Card, CardContent, CardHeader } from '@/app/components';
 import { StyledChevron } from './styled';
 
 type Props = {
@@ -23,8 +19,8 @@ export const CollapsableCard = ({ expanded, title, content }: Props) => {
   };
 
   return (
-    <StyledCard>
-      <StyledCardHeader
+    <Card>
+      <CardHeader
         action={
           <IconButton onClick={handleExpand}>
             <StyledChevron
@@ -40,8 +36,8 @@ export const CollapsableCard = ({ expanded, title, content }: Props) => {
         }
       />
       <Collapse in={isExpanded}>
-        <StyledCardContent>{content}</StyledCardContent>
+        <CardContent>{content}</CardContent>
       </Collapse>
-    </StyledCard>
+    </Card>
   );
 };

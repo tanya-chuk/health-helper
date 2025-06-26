@@ -1,8 +1,7 @@
 import React from 'react';
 import type { Metadata } from 'next';
 import { Inter, Rubik } from 'next/font/google';
-import { AppLayout } from './components/AppLayout';
-import { Providers } from './providers';
+import { ClientRootLayout } from './layouts';
 import './globals.css';
 
 const rubikSans = Rubik({
@@ -28,12 +27,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ru">
+      <head>
+        <meta
+          name="format-detection"
+          content="telephone=no, date=no, email=no, address=no"
+        />
+      </head>
       <body
         className={`${rubikSans.className} ${interSans.className} antialiased`}
       >
-        <Providers>
-          <AppLayout>{children}</AppLayout>
-        </Providers>
+        <ClientRootLayout>{children}</ClientRootLayout>
       </body>
     </html>
   );
