@@ -3,7 +3,7 @@ import React, { ReactNode } from 'react';
 import { observer } from 'mobx-react-lite';
 import { Typography } from '@mui/material';
 import { useStores } from '@/app/stores/StoreContext';
-import { CollapsableCard } from '@/app/components/CollapsableCard';
+import { CollapsableCard } from '@/app/components';
 import { Patient } from '@/app/types';
 import {
   ChronicIllness,

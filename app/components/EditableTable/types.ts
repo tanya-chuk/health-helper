@@ -1,7 +1,7 @@
 import { SxProps } from '@mui/material';
 import { HTMLInputTypeAttribute } from 'react';
 import { DefaultValues } from 'react-hook-form';
-import { SelectOption } from '../Select';
+import { SelectOption } from '@/app/components/Select';
 
 export type InputType =
   | Extract<HTMLInputTypeAttribute, 'text' | 'number'>

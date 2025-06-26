@@ -4,7 +4,7 @@ import { Typography } from '@mui/material';
 import { Edit } from '@/public/icons';
 import { Patient } from '@/app/types';
 import { pluralizeAge } from '@/app/utils';
-import { StyledCard, StyledCardContent, StyledCardHeader } from '../styled';
+import { Card, CardContent, CardHeader } from '@/app/components';
 import { StyledIconButton } from './styled';
 import { ReadOnlyInfo } from './ReadOnlyInfo';
 import { EditableInfo } from './EditableInfo';
@@ -25,8 +25,8 @@ export const BasicInfo = ({ patient }: Props) => {
   };
 
   return (
-    <StyledCard>
-      <StyledCardHeader
+    <Card>
+      <CardHeader
         title={
           <Typography variant="h6" component="h2">
             {patient.name}, {pluralizeAge(patient.age)}
@@ -43,13 +43,13 @@ export const BasicInfo = ({ patient }: Props) => {
           )
         }
       />
-      <StyledCardContent>
+      <CardContent>
         {isEditMode ? (
           <EditableInfo patient={patient} quitEditMode={quitEditMode} />
         ) : (
           <ReadOnlyInfo patient={patient} />
         )}
-      </StyledCardContent>
-    </StyledCard>
+      </CardContent>
+    </Card>
   );
 };

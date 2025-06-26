@@ -1,5 +1,5 @@
 import { Box, styled } from '@mui/material';
-import { DatePicker } from '../DatePicker';
+import { DatePicker } from '@/app/components/DatePicker';
 
 export const StyledBox = styled(Box)(({ theme: { spacing } }) => ({
   display: 'flex',
