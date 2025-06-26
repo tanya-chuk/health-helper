@@ -1,7 +1,7 @@
 import React from 'react';
 import type { Metadata } from 'next';
 import { Inter, Rubik } from 'next/font/google';
-import { ClientRootLayout } from './layouts/ClientRootLayout';
+import { ClientRootLayout } from './layouts';
 import './globals.css';
 
 const rubikSans = Rubik({

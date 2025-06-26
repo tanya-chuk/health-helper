@@ -1,7 +1,7 @@
 'use client';
 import React from 'react';
-import { AppLayout } from '../../components/AppLayout';
-import { Providers } from '../../providers';
+import { AppLayout } from '@/app/layouts';
+import { Providers } from '@/app/providers';
 
 export function ClientRootLayout({ children }: { children: React.ReactNode }) {
   return (
